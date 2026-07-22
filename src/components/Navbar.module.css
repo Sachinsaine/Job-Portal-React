@@ -1,0 +1,56 @@
+.navbar {
+  height: 72px;
+  padding: 0 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #ffffff;
+  border-bottom: 1px solid #cffddc;
+}
+
+.logo {
+  color: #2e6f40;
+
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navLinks a {
+  color: #253d2c;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  transition: color 0.3s ease;
+}
+
+.navLinks a:hover {
+  color: #2e6f40;
+}
+
+.postJobButton {
+  padding: 11px 22px;
+
+  color: #ffffff !important;
+  background-color: #2e6f40;
+
+  border-radius: 8px;
+  font-weight: 600 !important;
+
+  transition: all 0.3s ease;
+}
+
+.postJobButton:hover {
+  background-color: #253d2c;
+
+  transform: translateY(-2px);
+}
