@@ -39,13 +39,10 @@
 
 .postJobButton {
   padding: 11px 22px;
-
   color: #ffffff !important;
   background-color: #2e6f40;
-
   border-radius: 8px;
   font-weight: 600 !important;
-
   transition: all 0.3s ease;
 }
 
