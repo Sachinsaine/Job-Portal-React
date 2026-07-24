@@ -2,11 +2,11 @@ import { JobContext } from "./JobContext";
 import { jobs } from "../data/data.js";
 import { useReducer, useState } from "react";
 
-let initialState = {
+const initialState = {
   keyword: "",
-  location: "",
-  category: "",
-  filteredJobs: [],
+  location: "Anywhere",
+  category: "All category",
+  filteredJobs: jobs,
 };
 
 const reducer = (state, action) => {
@@ -17,18 +17,34 @@ const reducer = (state, action) => {
         [action.payload.name]: action.payload.value,
       };
 
-    // case "SEARCH": {
-    //   const { keyword, location, category } = state;
+    case "SEARCH": {
+      const filteredJobs = jobs.filter((job) => {
+        let keywordMatch = true;
+        let locationMatch = true;
+        let categoryMatch = true;
 
-    //   let filterjobs = jobs.filter((j) => {
-    //     keyword === "" ||
-    //       j.title.toLowerCase().includes(keyword.toLowerCase()) ||
-    //       j.company.toLocaleLowerCase().includes(keyword.toLowerCase());
+        if (state.keyword !== "") {
+          keywordMatch =
+            job.title.toLowerCase().includes(state.keyword.toLowerCase()) ||
+            job.company.toLowerCase().includes(state.keyword.toLowerCase());
+        }
 
-    //     category === "" ||
-    //     j.category
-    //   });
-    // }
+        if (state.location !== "Anywhere") {
+          locationMatch = job.location === state.location;
+        }
+
+        if (state.category !== "All category") {
+          categoryMatch = job.category === state.category;
+        }
+
+        return keywordMatch && locationMatch && categoryMatch;
+      });
+
+      return {
+        ...state,
+        filteredJobs,
+      };
+    }
 
     default:
       return state;
@@ -36,14 +52,18 @@ const reducer = (state, action) => {
 };
 
 export const ContextProvider = ({ children }) => {
-  const [job, setJob] = useState(jobs);
-  const [input, setInput] = useState("");
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
+
+  const [typeOfJob, setTypeOfJob] = useState("");
 
   return (
     <JobContext.Provider
-      value={{ job, setJob, input, setInput, state, dispatch }}
+      value={{
+        state,
+        dispatch,
+        typeOfJob,
+        setTypeOfJob,
+      }}
     >
       {children}
     </JobContext.Provider>

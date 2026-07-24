@@ -34,8 +34,8 @@ export const SubNavbar = () => {
           }
         >
           <option value="Anywhere">Anywhere</option>
-          <option value="Bangalore, India">India</option>
-          <option value="Hyderabad, India">Japan</option>
+          <option value="Bangalore, India">Bangalore, India</option>
+          <option value="Hyderabad, India">Hyderabad, India</option>
           <option value="Pune, India">Pune, India</option>
           <option value="Chennai, India">Chennai, India</option>
           <option value="Mumbai, India">Mumbai, India</option>

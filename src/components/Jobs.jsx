@@ -3,7 +3,13 @@ import { JobContext } from "../context/JobContext";
 import styles from "./Jobs.module.css";
 
 export const Jobs = () => {
-  const { job } = useContext(JobContext);
+  const { state, typeOfJob } = useContext(JobContext);
+
+  let jobsToDisplay = state.filteredJobs;
+
+  if (typeOfJob !== "") {
+    jobsToDisplay.filter((job) => job.jobType === typeOfJob);
+  }
 
   return (
     <main className={styles.jobsPage}>
@@ -16,10 +22,9 @@ export const Jobs = () => {
       </div>
 
       <div className={styles.jobList}>
-        {job.map((j) => {
+        {jobsToDisplay.map((j) => {
           return (
             <article className={styles.jobCard} key={j.id}>
-              {/* Top section */}
               <div className={styles.cardTop}>
                 <div className={styles.companyLogo}>{j.company.charAt(0)}</div>
 
@@ -31,21 +36,18 @@ export const Jobs = () => {
                 <button className={styles.saveButton}>♡</button>
               </div>
 
-              {/* Job details */}
               <div className={styles.jobDetails}>
                 <span>📍 {j.location}</span>
                 <span>💼 {j.jobType}</span>
                 <span>💰 {j.salary}</span>
               </div>
 
-              {/* Skills */}
               <div className={styles.skills}>
                 {j.skills.slice(0, 4).map((skill) => (
                   <span key={skill}>{skill}</span>
                 ))}
               </div>
 
-              {/* Bottom section */}
               <div className={styles.cardBottom}>
                 <span className={styles.postedDate}>{j.postedDate}</span>
 

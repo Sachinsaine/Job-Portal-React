@@ -1,8 +1,22 @@
 import { SubNavbar } from "./SubNavbar";
 import styles from "./Dashboard.module.css";
 import { Jobs } from "./Jobs";
+import { useContext } from "react";
+import { JobContext } from "../context/JobContext";
 
 export const Dashboard = () => {
+  const { typeOfJob } = useContext(JobContext);
+  const handleJobType = (e) => {
+    const selectedType = e.target.value;
+
+    if (e.target.checked) {
+      typeOfJob((previousTypes) => [...previousTypes, selectedType]);
+    } else {
+      typeOfJob((previousTypes) =>
+        previousTypes.filter((type) => type !== selectedType),
+      );
+    }
+  };
   return (
     <main className={styles.dashboard}>
       <section className={styles.hero}>
@@ -35,9 +49,7 @@ export const Dashboard = () => {
         </div>
       </section>
 
-      {/* Main jobs layout */}
       <section className={styles.jobsSection}>
-        {/* Left side */}
         <aside className={styles.filters}>
           <h2>Filters</h2>
 
@@ -45,22 +57,34 @@ export const Dashboard = () => {
             <h3>Job type</h3>
 
             <label>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                value="Full time"
+                onChange={handleJobType}
+              />
               Full-time
             </label>
 
             <label>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                value="Part-time"
+                onChange={handleJobType}
+              />
               Part-time
             </label>
 
             <label>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                value="Contract"
+                onChange={handleJobType}
+              />
               Contract
             </label>
 
             <label>
-              <input type="checkbox" />
+              <input type="checkbox" value="Remote" onChange={handleJobType} />
               Remote
             </label>
           </div>
@@ -109,7 +133,7 @@ export const Dashboard = () => {
 
         {/* Right side */}
         <section className={styles.jobsContent}>
-          <Jobs />
+          <Jobs handleJobType={handleJobType} />
         </section>
       </section>
     </main>
