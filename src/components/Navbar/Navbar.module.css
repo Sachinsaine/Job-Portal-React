@@ -12,10 +12,6 @@
   -webkit-backdrop-filter: blur(20px);
 }
 
-/* =========================
-   Container
-========================= */
-
 .navContainer {
   width: min(1400px, 100%);
 
@@ -30,10 +26,6 @@
 
   gap: 35px;
 }
-
-/* =========================
-   Logo
-========================= */
 
 .logo {
   display: flex;
@@ -70,10 +62,6 @@
   letter-spacing: -0.8px;
 }
 
-/* =========================
-   Navigation
-========================= */
-
 .navLinks {
   display: flex;
   align-items: center;
@@ -109,10 +97,6 @@
   background: #cffddc;
   color: #253d2c;
 }
-
-/* =========================
-   Actions
-========================= */
 
 .navActions {
   display: flex;
@@ -179,10 +163,6 @@
   box-shadow: 0 7px 18px rgba(37, 61, 44, 0.16);
 }
 
-/* =========================
-   Mobile Button
-========================= */
-
 .menuButton {
   display: none;
 
@@ -207,17 +187,9 @@
   background: #ffffff;
 }
 
-/* =========================
-   Mobile Menu
-========================= */
-
 .mobileMenu {
   display: none;
 }
-
-/* =========================
-   Responsive
-========================= */
 
 @media (max-width: 1050px) {
   .navLinks {
@@ -249,8 +221,6 @@
   .menuButton {
     display: flex;
   }
-
-  /* Mobile dropdown */
 
   .mobileMenu {
     display: block;
@@ -291,8 +261,6 @@
     background: #ffffff;
     color: #253d2c;
   }
-
-  /* Mobile actions */
 
   .mobileActions {
     display: flex;
