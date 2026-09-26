@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { email, z } from "zod";
 import {
   FiArrowRight,
   FiBriefcase,
@@ -49,6 +49,18 @@ export const Registration = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
+    try {
+      const response = await fetch("http://localhost:4001/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     reset();
   };

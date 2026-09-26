@@ -90,10 +90,6 @@ export const Login = () => {
           </div>
         </section>
 
-        {/* =========================
-            LOGIN CARD
-        ========================= */}
-
         <section className={styles.loginCard}>
           <div className={styles.cardHeader}>
             <span className={styles.mobileLabel}>JOBTRACK ACCOUNT</span>
@@ -104,8 +100,6 @@ export const Login = () => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            {/* Email */}
-
             <div className={styles.formGroup}>
               <label htmlFor="email">Email address</label>
 
