@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { email, z } from "zod";
+import { z } from "zod";
 import {
   FiArrowRight,
   FiBriefcase,
@@ -10,6 +10,7 @@ import {
 
 import styles from "./Registration.module.css";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const registrationSchema = z
   .object({
@@ -52,17 +53,28 @@ export const Registration = () => {
     try {
       const response = await fetch("http://localhost:4001/api/auth/register", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           name: data.name,
           email: data.email,
           password: data.password,
         }),
       });
-    } catch (error) {
-      console.log(error);
-    }
 
-    reset();
+      const result = await response.json();
+      if (!response.ok) {
+        toast.error(result.message || "Signup failed");
+        return;
+      }
+
+      toast.success(result.message);
+      reset();
+    } catch (error) {
+      console.log("Registration error:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
   return (

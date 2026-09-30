@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import { Login } from "./components/forms/Login/Login";
 import { Registration } from "./components/forms/Registration/Registration";
+import { Toaster } from "react-hot-toast";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ function App() {
     <>
       <BrowserRouter>
         <ContextProvider>
+          <Toaster position="top-right" />
           <AppLayout />
         </ContextProvider>
       </BrowserRouter>

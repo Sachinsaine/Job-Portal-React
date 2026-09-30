@@ -70,8 +70,6 @@ const companies = ["Google", "Microsoft", "Amazon", "Razorpay", "Adobe"];
 export const Homepage = () => {
   return (
     <div className={styles.page}>
-      {/* ================= HERO ================= */}
-
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.eyebrow}>
@@ -145,8 +143,6 @@ export const Homepage = () => {
         </div>
       </section>
 
-      {/* ================= STATS ================= */}
-
       <section className={styles.statsSection}>
         <div className={styles.stats}>
           <div>
@@ -170,8 +166,6 @@ export const Homepage = () => {
           </div>
         </div>
       </section>
-
-      {/* ================= CATEGORIES ================= */}
 
       <section className={styles.section} id="categories">
         <div className={styles.sectionHeader}>
@@ -203,8 +197,6 @@ export const Homepage = () => {
           ))}
         </div>
       </section>
-
-      {/* ================= FEATURED JOBS ================= */}
 
       <section className={`${styles.jobsSection} ${styles.section}`} id="jobs">
         <div className={styles.sectionHeader}>
@@ -260,8 +252,6 @@ export const Homepage = () => {
         </div>
       </section>
 
-      {/* ================= COMPANIES ================= */}
-
       <section className={styles.companiesSection} id="companies">
         <p>People are building their careers at</p>
 
@@ -271,8 +261,6 @@ export const Homepage = () => {
           ))}
         </div>
       </section>
-
-      {/* ================= CTA ================= */}
 
       <section className={styles.ctaSection}>
         <div className={styles.cta}>
