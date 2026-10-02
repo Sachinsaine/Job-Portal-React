@@ -1,16 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  FiArrowRight,
-  FiBriefcase,
-  FiCheckCircle,
-  FiShield,
-} from "react-icons/fi";
+import { FiArrowRight, FiCheckCircle, FiShield } from "react-icons/fi";
 
 import styles from "./Registration.module.css";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import logo from "../../../assets/logo.svg";
 
 const registrationSchema = z
   .object({
@@ -83,10 +79,8 @@ export const Registration = () => {
         <section className={styles.registrationContent}>
           <div className={styles.brand}>
             <span className={styles.brandIcon}>
-              <FiBriefcase />
+              <img src={logo} alt="" />
             </span>
-
-            <span>JobTrack</span>
           </div>
 
           <div className={styles.heading}>

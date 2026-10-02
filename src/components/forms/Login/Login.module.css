@@ -48,24 +48,12 @@
   letter-spacing: -0.6px;
 }
 
-.brandIcon {
-  width: 40px;
-  height: 40px;
+.brandIcon img {
+  width: 226px;
 
   display: grid;
   place-items: center;
-
-  border-radius: 12px;
-
-  background: #253d2c;
-  color: white;
-
-  font-size: 18px;
 }
-
-/* =========================
-   HEADING
-========================= */
 
 .heading {
   margin-top: 70px;

@@ -13,22 +13,18 @@ const AppLayout = () => {
 
   const hideLayout =
     location.pathname === "/login" || location.pathname === "/registration";
-
   return (
     <>
       {!hideLayout && <Navbar />}
-
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
       </Routes>
-
       {!hideLayout && <Footer />}
     </>
   );
 };
-
 function App() {
   return (
     <>

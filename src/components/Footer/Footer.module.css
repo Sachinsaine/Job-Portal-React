@@ -49,18 +49,14 @@
 }
 
 .logoIcon {
-  width: 40px;
-  height: 40px;
-
+  width: 226px;
+  /* height: 45px; */
   display: grid;
   place-items: center;
-
   border-radius: 12px;
-
   background: #cffddc;
   color: #253d2c;
-
-  font-size: 18px;
+  padding: 4px;
 }
 
 .description {

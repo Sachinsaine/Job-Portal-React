@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
-  FiBriefcase,
   FiArrowRight,
   FiCheckCircle,
   FiShield,
@@ -11,6 +10,7 @@ import {
 
 import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
+import logo from "../../../assets/logo.svg";
 
 const loginSchema = z.object({
   email: z.string().trim().email("Please enter a valid email address"),
@@ -37,17 +37,11 @@ export const Login = () => {
   return (
     <main className={styles.loginPage}>
       <div className={styles.loginContainer}>
-        {/* =========================
-            LEFT CONTENT
-        ========================= */}
-
         <section className={styles.loginContent}>
           <div className={styles.brand}>
             <span className={styles.brandIcon}>
-              <FiBriefcase />
+              <img src={logo} alt="" />
             </span>
-
-            <span>JobTrack</span>
           </div>
 
           <div className={styles.heading}>

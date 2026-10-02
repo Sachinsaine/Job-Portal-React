@@ -1,4 +1,3 @@
-export const requireLogin = () => {
-  alert("Please login first");
+export const requireLogin = (setOpen) => {
+  setOpen(true);
 };
-
