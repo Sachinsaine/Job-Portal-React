@@ -12,9 +12,17 @@ const app = express();
 
 app.use(express.json());
 
-connectDB();
 const PORT = process.env.PORT || 4001;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.log("Failed to start server:", error.message);
+  }
+};
+
+startServer();

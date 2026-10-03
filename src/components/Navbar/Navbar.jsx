@@ -9,6 +9,7 @@ function Navbar() {
     e.preventDefault();
     requireLogin();
   };
+
   return (
     <header className={styles.navbar}>
       <div className={styles.navContainer}>
