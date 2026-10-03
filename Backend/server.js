@@ -7,10 +7,12 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const express = require("express");
 const connectDB = require("./config/db");
+const authRoutes = require("./Routes/authRoutes");
 
 const app = express();
 
 app.use(express.json());
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 4001;
 
