@@ -36,7 +36,7 @@ function Navbar() {
         </nav>
 
         <div className={styles.navActions}>
-          <Link to="/login" className={styles.signIn}>
+          <Link to="/signin" className={styles.signIn}>
             Sign in
           </Link>
 
