@@ -182,13 +182,9 @@ export const Login = () => {
             <span>New to JobTrack?</span>
           </div>
 
-          {/* Signup */}
-
-          <Link to="/registration" className={styles.signupButton}>
+          <Link to="/signup" className={styles.signupButton}>
             Create an account
           </Link>
-
-          {/* Security */}
 
           <div className={styles.security}>
             <FiShield />
