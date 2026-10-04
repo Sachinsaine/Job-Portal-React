@@ -9,8 +9,9 @@ import {
 } from "react-icons/fi";
 
 import styles from "./Login.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
+import toast from "react-hot-toast";
 
 const loginSchema = z.object({
   email: z.string().trim().email("Please enter a valid email address"),
@@ -28,10 +29,34 @@ export const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     console.log(data);
+    try {
+      const response = await fetch("http://localhost:4001/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
 
-    reset();
+      const result = await response.json();
+
+      if (!response.ok) {
+        toast.error(result.message || "Login failed");
+        return;
+      }
+
+      reset();
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
   return (

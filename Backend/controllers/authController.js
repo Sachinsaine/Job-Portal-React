@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 const bcrypt = require("bcryptjs");
 const User = require("../models/Users");
+const jwt = require("jsonwebtoken");
 
 const userSignup = async (req, res) => {
   try {
@@ -57,6 +58,22 @@ const userSignin = async (req, res) => {
         message: "Invalid email or password",
       });
     }
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" },
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
 
     res.status(200).json({
       message: "Signin Successful",

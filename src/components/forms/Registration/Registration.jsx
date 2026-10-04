@@ -4,7 +4,7 @@ import { z } from "zod";
 import { FiArrowRight, FiCheckCircle, FiShield } from "react-icons/fi";
 
 import styles from "./Registration.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import logo from "../../../assets/logo.svg";
 
@@ -18,7 +18,7 @@ const registrationSchema = z
 
     confirmPassword: z.string().min(6, "Please confirm your password"),
 
-    accountType: z.enum(["jobSeeker", "employer"]),
+    // accountType: z.enum(["user", "admin"]),
 
     terms: z.boolean().refine((value) => value === true, {
       message: "You must accept the terms and conditions",
@@ -39,15 +39,16 @@ export const Registration = () => {
     resolver: zodResolver(registrationSchema),
 
     defaultValues: {
-      accountType: "jobSeeker",
       terms: false,
     },
   });
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const response = await fetch("http://localhost:4001/api/auth/register", {
+      const response = await fetch("http://localhost:4001/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,6 +68,10 @@ export const Registration = () => {
 
       toast.success(result.message);
       reset();
+
+      navigate("/signin", {
+        replace: true,
+      });
     } catch (error) {
       console.log("Registration error:", error);
       toast.error("Something went wrong. Please try again.");
@@ -209,7 +214,7 @@ export const Registration = () => {
               )}
             </div>
 
-            <div className={styles.formGroup}>
+            {/* <div className={styles.formGroup}>
               <label>Account type</label>
 
               <div className={styles.accountTypes}>
@@ -239,7 +244,7 @@ export const Registration = () => {
                   </span>
                 </label>
               </div>
-            </div>
+            </div> */}
 
             <label className={styles.terms}>
               <input type="checkbox" {...register("terms")} />

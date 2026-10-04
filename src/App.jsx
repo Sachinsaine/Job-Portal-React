@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import { Login } from "./components/forms/Login/Login";
 import { Registration } from "./components/forms/Registration/Registration";
 import { Toaster } from "react-hot-toast";
+import { Dashboard } from "./components/Dashboard/Dashboard";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const AppLayout = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/dashboard" element={<Dashboard />} />{" "}
       </Routes>
       {!hideLayout && <Footer />}
     </>
