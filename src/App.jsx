@@ -13,14 +13,14 @@ const AppLayout = () => {
   const location = useLocation();
 
   const hideLayout =
-    location.pathname === "/login" || location.pathname === "/registration";
+    location.pathname === "/signin" || location.pathname === "/signup";
   return (
     <>
       {!hideLayout && <Navbar />}
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registration" element={<Registration />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/signup" element={<Registration />} />
         <Route path="/dashboard" element={<Dashboard />} />{" "}
       </Routes>
       {!hideLayout && <Footer />}
