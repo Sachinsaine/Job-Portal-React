@@ -1,3 +1,7 @@
+/* =========================================
+   NAVBAR
+========================================= */
+
 .navbar {
   position: sticky;
   top: 0;
@@ -6,11 +10,16 @@
   width: 100%;
 
   background: rgba(255, 255, 255, 0.42);
+
   border-bottom: 1px solid rgba(37, 61, 44, 0.07);
 
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
+
+/* =========================================
+   NAV CONTAINER
+========================================= */
 
 .navContainer {
   width: min(1400px, 100%);
@@ -18,6 +27,7 @@
   min-height: 82px;
 
   margin: 0 auto;
+
   padding: 0 40px;
 
   display: flex;
@@ -27,20 +37,31 @@
   gap: 35px;
 }
 
+/* =========================================
+   LOGO
+========================================= */
+
 .logo {
   display: flex;
   align-items: center;
 
-  gap: 11px;
-
-  color: #253d2c;
-
   flex-shrink: 0;
+
+  text-decoration: none;
 }
 
 .logoIcon {
   width: 226px;
+  height: auto;
+
+  display: block;
+
+  object-fit: contain;
 }
+
+/* =========================================
+   DESKTOP NAV LINKS
+========================================= */
 
 .navLinks {
   display: flex;
@@ -53,10 +74,14 @@
   border-radius: 14px;
 
   background: rgba(255, 255, 255, 0.42);
+
   border: 1px solid rgba(37, 61, 44, 0.05);
 }
 
 .navLinks a {
+  display: flex;
+  align-items: center;
+
   padding: 9px 13px;
 
   border-radius: 9px;
@@ -68,6 +93,8 @@
 
   white-space: nowrap;
 
+  text-decoration: none;
+
   transition:
     color 0.2s ease,
     background 0.2s ease;
@@ -75,8 +102,21 @@
 
 .navLinks a:hover {
   background: #cffddc;
+
   color: #253d2c;
 }
+
+/* ACTIVE LINK */
+
+.navLinks a.active {
+  background: #cffddc;
+
+  color: #253d2c;
+}
+
+/* =========================================
+   DESKTOP ACTIONS
+========================================= */
 
 .navActions {
   display: flex;
@@ -87,7 +127,13 @@
   flex-shrink: 0;
 }
 
+/* SIGN IN */
+
 .signIn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border: 0;
 
   padding: 11px 16px;
@@ -95,17 +141,28 @@
   border-radius: 10px;
 
   background: transparent;
+
   color: #253d2c;
 
   font-size: 13px;
   font-weight: 700;
 
-  transition: background 0.2s ease;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .signIn:hover {
   background: rgba(255, 255, 255, 0.65);
+
+  color: #172a1d;
 }
+
+/* GET STARTED */
 
 .postJob {
   display: flex;
@@ -115,15 +172,21 @@
   gap: 7px;
 
   border: 0;
+
   border-radius: 11px;
 
   padding: 11px 16px;
 
   background: #253d2c;
+
   color: #ffffff;
 
   font-size: 13px;
   font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
 
   transition:
     transform 0.2s ease,
@@ -143,6 +206,10 @@
   box-shadow: 0 7px 18px rgba(37, 61, 44, 0.16);
 }
 
+/* =========================================
+   MOBILE MENU BUTTON
+========================================= */
+
 .menuButton {
   display: none;
 
@@ -153,38 +220,75 @@
   justify-content: center;
 
   border: 1px solid rgba(37, 61, 44, 0.08);
+
   border-radius: 11px;
 
   background: rgba(255, 255, 255, 0.7);
+
   color: #253d2c;
 
   font-size: 21px;
 
-  transition: background 0.2s ease;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .menuButton:hover {
   background: #ffffff;
 }
 
+.menuButton:active {
+  transform: scale(0.95);
+}
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
 .mobileMenu {
   display: none;
 }
 
-@media (max-width: 1050px) {
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+  .navContainer {
+    padding: 0 25px;
+
+    gap: 20px;
+  }
+
+  .logoIcon {
+    width: 190px;
+  }
+
   .navLinks {
     gap: 2px;
   }
 
   .navLinks a {
-    padding: 9px 10px;
+    padding: 8px 9px;
+
     font-size: 12px;
   }
 
-  .navContainer {
-    gap: 20px;
+  .signIn {
+    padding: 10px 12px;
+  }
+
+  .postJob {
+    padding: 10px 13px;
   }
 }
+
+/* =========================================
+   TABLET / MOBILE
+========================================= */
 
 @media (max-width: 900px) {
   .navContainer {
@@ -193,17 +297,35 @@
     padding: 0 20px;
   }
 
+  .logoIcon {
+    width: 180px;
+  }
+
+  /*
+    Hide desktop navigation
+  */
+
   .navLinks,
   .navActions {
     display: none;
   }
 
+  /*
+    Show hamburger
+  */
+
   .menuButton {
     display: flex;
   }
 
+  /*
+    Mobile dropdown
+  */
+
   .mobileMenu {
     display: block;
+
+    width: 100%;
 
     padding: 10px 20px 24px;
 
@@ -215,6 +337,10 @@
     -webkit-backdrop-filter: blur(20px);
   }
 
+  /* =====================================
+     MOBILE LINKS
+  ===================================== */
+
   .mobileLinks {
     display: flex;
     flex-direction: column;
@@ -223,6 +349,11 @@
   }
 
   .mobileLinks a {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
     padding: 13px 12px;
 
     border-radius: 10px;
@@ -232,6 +363,8 @@
     font-size: 14px;
     font-weight: 600;
 
+    text-decoration: none;
+
     transition:
       background 0.2s ease,
       color 0.2s ease;
@@ -239,8 +372,19 @@
 
   .mobileLinks a:hover {
     background: #ffffff;
+
     color: #253d2c;
   }
+
+  .mobileLinks a.active {
+    background: #ffffff;
+
+    color: #253d2c;
+  }
+
+  /* =====================================
+     MOBILE ACTIONS
+  ===================================== */
 
   .mobileActions {
     display: flex;
@@ -249,29 +393,48 @@
     gap: 8px;
 
     margin-top: 12px;
+
     padding-top: 12px;
 
     border-top: 1px solid rgba(37, 61, 44, 0.07);
   }
 
-  .mobileSignIn,
-  .mobilePostJob {
+  /* SIGN IN */
+
+  .mobileSignIn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
 
     min-height: 45px;
 
+    border: 1px solid rgba(37, 61, 44, 0.1);
+
     border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #253d2c;
 
     font-size: 13px;
     font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
   }
 
-  .mobileSignIn {
-    border: 1px solid rgba(37, 61, 44, 0.1);
-
-    background: #ffffff;
-    color: #253d2c;
+  .mobileSignIn:hover {
+    background: #f7fff9;
   }
+
+  /* GET STARTED */
 
   .mobilePostJob {
     display: flex;
@@ -280,10 +443,37 @@
 
     gap: 7px;
 
+    width: 100%;
+
+    min-height: 45px;
+
     border: 0;
 
+    border-radius: 10px;
+
     background: #253d2c;
+
     color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .mobilePostJob:hover {
+    background: #172a1d;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 7px 18px rgba(37, 61, 44, 0.16);
   }
 
   .mobilePostJob svg {
@@ -291,24 +481,85 @@
   }
 }
 
-@media (max-width: 500px) {
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 600px) {
   .navContainer {
     padding: 0 16px;
   }
 
   .logoIcon {
-    width: 38px;
-    height: 38px;
-
-    border-radius: 11px;
-  }
-
-  .logoText {
-    font-size: 20px;
+    width: 165px;
   }
 
   .mobileMenu {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 10px 16px 20px;
+  }
+}
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+  .navContainer {
+    min-height: 66px;
+
+    padding: 0 13px;
+  }
+
+  .logoIcon {
+    width: 145px;
+  }
+
+  .menuButton {
+    width: 39px;
+    height: 39px;
+
+    font-size: 19px;
+  }
+
+  .mobileMenu {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+
+  .mobileLinks a {
+    padding: 12px 10px;
+
+    font-size: 13px;
+  }
+
+  .mobileSignIn,
+  .mobilePostJob {
+    min-height: 43px;
+  }
+}
+
+/* =========================================
+   EXTRA SMALL DEVICES
+========================================= */
+
+@media (max-width: 320px) {
+  .navContainer {
+    padding: 0 10px;
+  }
+
+  .logoIcon {
+    width: 130px;
+  }
+
+  .menuButton {
+    width: 37px;
+    height: 37px;
+
+    font-size: 18px;
+  }
+
+  .mobileMenu {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }

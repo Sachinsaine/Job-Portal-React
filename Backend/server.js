@@ -14,21 +14,21 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 //Develoyement
-const FRONTEND_URL = "https://job-portal-react-brown.vercel.app";
-app.use(
-  cors({
-    origin: ["http://localhost:5173", FRONTEND_URL],
-    credentials: true,
-  }),
-);
-
-//Local
+// const FRONTEND_URL = "https://job-portal-react-brown.vercel.app";
 // app.use(
 //   cors({
-//     origin: "http://localhost:5173",
+//     origin: ["http://localhost:5173", FRONTEND_URL],
 //     credentials: true,
 //   }),
 // );
+
+//Local
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 app.use(cookieParser());

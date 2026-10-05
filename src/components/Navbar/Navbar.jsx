@@ -1,53 +1,117 @@
-import { FiArrowUpRight } from "react-icons/fi";
-import styles from "./Navbar.module.css";
-import { Link } from "react-router-dom";
-import { requireLogin } from "../../utils/authGuard";
-import logo from "../../assets/logo.svg";
+import { useState } from "react";
+import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
+import { Link, NavLink } from "react-router-dom";
 
-function Navbar() {
+import styles from "./Navbar.module.css";
+import logo from "../../assets/logo.svg";
+import { requireLogin } from "../../utils/authGuard";
+
+export const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleRequireLogin = (e) => {
     e.preventDefault();
+    setMenuOpen(false);
     requireLogin();
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
   return (
     <header className={styles.navbar}>
       <div className={styles.navContainer}>
-        <Link to="/" className={styles.logo}>
-          <img src={logo} alt="" className={styles.logoIcon} />
+        <Link to="/" className={styles.logo} onClick={closeMenu}>
+          <img src={logo} alt="JobTrack" className={styles.logoIcon} />
         </Link>
 
         <nav className={styles.navLinks}>
-          <a href="#jobs" onClick={handleRequireLogin}>
-            Find Jobs
-          </a>
+          <NavLink to="/" end>
+            Home
+          </NavLink>
 
-          <a href="#companies" onClick={handleRequireLogin}>
+          <NavLink to="/jobs" onClick={handleRequireLogin}>
+            Jobs
+          </NavLink>
+
+          <NavLink to="/companies" onClick={handleRequireLogin}>
             Companies
-          </a>
+          </NavLink>
 
-          <a href="#categories" onClick={handleRequireLogin}>
-            Categories
-          </a>
+          <NavLink to="/applications" onClick={handleRequireLogin}>
+            Applications
+          </NavLink>
 
-          <a href="#resources" onClick={handleRequireLogin}>
-            Career Resources
-          </a>
+          <NavLink to="/about">About</NavLink>
         </nav>
 
         <div className={styles.navActions}>
           <Link to="/signin" className={styles.signIn}>
-            Sign in
+            Sign In
           </Link>
 
-          <button className={styles.postJob} onClick={requireLogin}>
-            Post a Job
+          <Link to="/signup" className={styles.postJob}>
+            Get Started
             <FiArrowUpRight />
-          </button>
+          </Link>
         </div>
+
+        <button
+          type="button"
+          className={styles.menuButton}
+          onClick={() => setMenuOpen((prev) => !prev)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+        >
+          {menuOpen ? <FiX /> : <FiMenu />}
+        </button>
       </div>
+
+      {menuOpen && (
+        <div className={styles.mobileMenu}>
+          <nav className={styles.mobileLinks}>
+            <NavLink to="/" end onClick={closeMenu}>
+              Home
+            </NavLink>
+
+            <NavLink to="/jobs" onClick={handleRequireLogin}>
+              Jobs
+            </NavLink>
+
+            <NavLink to="/companies" onClick={handleRequireLogin}>
+              Companies
+            </NavLink>
+
+            <NavLink to="/applications" onClick={handleRequireLogin}>
+              Applications
+            </NavLink>
+
+            <NavLink to="/about" onClick={closeMenu}>
+              About
+            </NavLink>
+          </nav>
+
+          <div className={styles.mobileActions}>
+            <Link
+              to="/signin"
+              className={styles.mobileSignIn}
+              onClick={closeMenu}
+            >
+              Sign In
+            </Link>
+
+            <Link
+              to="/signup"
+              className={styles.mobilePostJob}
+              onClick={closeMenu}
+            >
+              Get Started
+              <FiArrowUpRight />
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
-}
-
-export default Navbar;
+};

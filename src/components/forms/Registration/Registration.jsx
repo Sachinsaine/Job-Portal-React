@@ -216,39 +216,6 @@ export const Registration = () => {
                 </span>
               )}
             </div>
-
-            {/* <div className={styles.formGroup}>
-              <label>Account type</label>
-
-              <div className={styles.accountTypes}>
-                <label className={styles.accountOption}>
-                  <input
-                    type="radio"
-                    value="jobSeeker"
-                    {...register("accountType")}
-                  />
-
-                  <span>
-                    <strong>Job Seeker</strong>
-                    <small>Find your next job</small>
-                  </span>
-                </label>
-
-                <label className={styles.accountOption}>
-                  <input
-                    type="radio"
-                    value="employer"
-                    {...register("accountType")}
-                  />
-
-                  <span>
-                    <strong>Employer</strong>
-                    <small>Find great talent</small>
-                  </span>
-                </label>
-              </div>
-            </div> */}
-
             <label className={styles.terms}>
               <input type="checkbox" {...register("terms")} />
 
@@ -271,7 +238,7 @@ export const Registration = () => {
           <div className={styles.loginLink}>
             <span>Already have an account?</span>
 
-            <Link to="/login">Sign in</Link>
+            <Link to="/signin">Sign in</Link>
           </div>
 
           <div className={styles.security}>
