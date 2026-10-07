@@ -1,20 +1,20 @@
+import { useJobs } from "../hooks/jobs";
 import { JobContext } from "./JobContext";
 import { useState } from "react";
 
 export const ContextProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState("");
   const [open, setOpen] = useState(false);
+  const { jobs, setJobs, error, loading } = useJobs();
 
   return (
     <JobContext.Provider
       value={{
+        error,
         loading,
-        setLoading,
-        errors,
-        setErrors,
         open,
         setOpen,
+        jobs,
+        setJobs,
       }}
     >
       {children}
