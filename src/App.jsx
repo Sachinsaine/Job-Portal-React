@@ -8,6 +8,7 @@ import { Login } from "./components/forms/Login/Login";
 import { Registration } from "./components/forms/Registration/Registration";
 import { Toaster } from "react-hot-toast";
 import { Dashboard } from "./components/Dashboard/Dashboard";
+import { AuthProvider } from "./context/AuthProvider";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -31,10 +32,12 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ContextProvider>
-          <Toaster position="top-right" />
-          <AppLayout />
-        </ContextProvider>
+        <AuthProvider>
+          <ContextProvider>
+            <Toaster position="top-right" />
+            <AppLayout />
+          </ContextProvider>
+        </AuthProvider>
       </BrowserRouter>
     </>
   );

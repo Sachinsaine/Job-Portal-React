@@ -66,9 +66,17 @@ export const Dashboard = () => {
 
         {jobs.map((job) => (
           <div key={job._id} className={styles.jobCard}>
-            <h2>{job.jobTitle}</h2>
-            <p>{job.company}</p>
-            <p>{job.place}</p>
+            <h2>Role: {job.jobTitle}</h2>
+            <p>Company: {job.company}</p>
+            <p>Location: {job.place}</p>
+            <div>
+              Experience: Min - <span>{job.experience.min}</span>, Max -{" "}
+              <span>{job.experience.max}</span>
+            </div>
+            <div>
+              Salary: Min - <span>{job.experience.min}LPA</span>, Max -{" "}
+              <span>{job.experience.max}LPA</span>
+            </div>
           </div>
         ))}
       </main>

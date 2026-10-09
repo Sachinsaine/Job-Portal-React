@@ -73,6 +73,7 @@ const userSignin = async (req, res) => {
       secure: false,
       sameSite: "lax",
       maxAge: 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     res.status(200).json({
@@ -92,4 +93,17 @@ const userSignin = async (req, res) => {
   }
 };
 
-module.exports = { userSignup, userSignin };
+const logOut = async (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+    path: "/",
+  });
+
+  res.status(200).json({
+    message: "Logout successfully",
+  });
+};
+
+module.exports = { userSignup, userSignin, logOut };

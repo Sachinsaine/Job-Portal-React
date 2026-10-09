@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
 import { Link, NavLink } from "react-router-dom";
 
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
 import { requireLogin } from "../../utils/authGuard";
+import { AuthContext } from "../../context/AuthContext";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
   const handleRequireLogin = (e) => {
-    e.preventDefault();
     setMenuOpen(false);
-    requireLogin();
+
+    if (!isAuthenticated) {
+      e.preventDefault();
+      requireLogin();
+    }
   };
 
   const closeMenu = () => {
@@ -47,14 +52,22 @@ export const Navbar = () => {
         </nav>
 
         <div className={styles.navActions}>
-          <Link to="/signin" className={styles.signIn}>
-            Sign In
-          </Link>
+          {isAuthenticated ? (
+            <button type="button" className={styles.signIn} onClick={logout}>
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link to="/signin" className={styles.signIn}>
+                Sign In
+              </Link>
 
-          <Link to="/signup" className={styles.postJob}>
-            Get Started
-            <FiArrowUpRight />
-          </Link>
+              <Link to="/signup" className={styles.postJob}>
+                Get Started
+                <FiArrowUpRight />
+              </Link>
+            </>
+          )}
         </div>
 
         <button
