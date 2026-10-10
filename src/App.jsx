@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { AuthProvider } from "./context/AuthProvider";
 import { JobsPage } from "./components/JobsPage/JobsPage";
+import { Addjobs } from "./components/AddJobs/AddJobs";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const AppLayout = () => {
         <Route path="/signup" element={<Registration />} />
         <Route path="/dashboard" element={<Dashboard />} />{" "}
         <Route path="/jobspage" element={<JobsPage />} />
+        <Route path="/addjobs" element={<Addjobs />} />
       </Routes>
       {!hideLayout && <Footer />}
     </>
