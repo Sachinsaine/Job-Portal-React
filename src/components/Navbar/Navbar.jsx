@@ -9,7 +9,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
   const handleRequireLogin = (e) => {
     setMenuOpen(false);
@@ -52,22 +52,14 @@ export const Navbar = () => {
         </nav>
 
         <div className={styles.navActions}>
-          {isAuthenticated ? (
-            <button type="button" className={styles.signIn} onClick={logout}>
-              Logout
-            </button>
-          ) : (
-            <>
-              <Link to="/signin" className={styles.signIn}>
-                Sign In
-              </Link>
+          <Link to="/signin" className={styles.signIn}>
+            Sign In
+          </Link>
 
-              <Link to="/signup" className={styles.postJob}>
-                Get Started
-                <FiArrowUpRight />
-              </Link>
-            </>
-          )}
+          <Link to="/signup" className={styles.postJob}>
+            Get Started
+            <FiArrowUpRight />
+          </Link>
         </div>
 
         <button

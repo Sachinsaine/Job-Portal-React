@@ -12,6 +12,8 @@ import styles from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
 import toast from "react-hot-toast";
+import { useContext } from "react";
+import { JobContext } from "../../../context/JobContext";
 
 const loginSchema = z.object({
   email: z.string().trim().email("Please enter a valid email address"),
@@ -20,6 +22,8 @@ const loginSchema = z.object({
 });
 
 export const Login = () => {
+  const { setUser } = useContext(JobContext);
+
   const {
     register,
     handleSubmit,
@@ -53,6 +57,8 @@ export const Login = () => {
         toast.error(result.message || "Login failed");
         return;
       }
+
+      setUser(result.user);
 
       reset();
       navigate("/dashboard");
@@ -138,8 +144,6 @@ export const Login = () => {
               )}
             </div>
 
-            {/* Password */}
-
             <div className={styles.formGroup}>
               <div className={styles.passwordHeader}>
                 <label htmlFor="password">Password</label>
@@ -160,23 +164,17 @@ export const Login = () => {
               )}
             </div>
 
-            {/* Remember */}
-
             <label className={styles.remember}>
               <input type="checkbox" />
 
               <span>Remember me</span>
             </label>
 
-            {/* Submit */}
-
             <button type="submit" className={styles.loginButton}>
               Sign in
               <FiArrowRight />
             </button>
           </form>
-
-          {/* Divider */}
 
           <div className={styles.divider}>
             <span>New to JobTrack?</span>

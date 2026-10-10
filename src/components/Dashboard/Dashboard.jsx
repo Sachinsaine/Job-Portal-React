@@ -12,13 +12,15 @@ import styles from "./dashboard.module.css";
 import { JobContext } from "../../context/JobContext";
 
 export const Dashboard = () => {
-  const { jobs, loading } = useContext(JobContext);
+  const { jobs, loading, user } = useContext(JobContext);
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   if (loading) {
     return <h1>Loading...</h1>;
   }
+
+  console.log(user);
 
   return (
     <div className={styles.dashboard}>
@@ -62,20 +64,28 @@ export const Dashboard = () => {
       </aside>
 
       <main className={styles.jobs}>
-        <h1>Job Listings</h1>
-
+        <div>
+          <h1>Welcome back, {user?.name || "Welcome, User!"}</h1>{" "}
+          <p>
+            Find roles, apply in one click and follow every application from
+            here.
+          </p>
+          <div>
+            <button>Find jobs</button>
+            <button>My applications</button>
+          </div>
+        </div>
+        <h5>Recent applications</h5>
         {jobs.map((job) => (
           <div key={job._id} className={styles.jobCard}>
-            <h2>Role: {job.jobTitle}</h2>
-            <p>Company: {job.company}</p>
-            <p>Location: {job.place}</p>
             <div>
-              Experience: Min - <span>{job.experience.min}</span>, Max -{" "}
-              <span>{job.experience.max}</span>
-            </div>
-            <div>
-              Salary: Min - <span>{job.experience.min}LPA</span>, Max -{" "}
-              <span>{job.experience.max}LPA</span>
+              <div>
+                <h2>{job.jobTitle}</h2>
+                <p>{job.company} . 2 days ago</p>
+              </div>
+              <div>
+                <button>Applied</button>
+              </div>
             </div>
           </div>
         ))}

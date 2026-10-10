@@ -5,6 +5,7 @@ import { useState } from "react";
 export const ContextProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const { jobs, setJobs, error, loading } = useJobs();
+  const [user, setUser] = useState(null);
 
   return (
     <JobContext.Provider
@@ -15,6 +16,8 @@ export const ContextProvider = ({ children }) => {
         setOpen,
         jobs,
         setJobs,
+        user,
+        setUser,
       }}
     >
       {children}
