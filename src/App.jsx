@@ -9,6 +9,7 @@ import { Registration } from "./components/forms/Registration/Registration";
 import { Toaster } from "react-hot-toast";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { AuthProvider } from "./context/AuthProvider";
+import { JobsPage } from "./components/JobsPage/JobsPage";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const AppLayout = () => {
         <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<Registration />} />
         <Route path="/dashboard" element={<Dashboard />} />{" "}
+        <Route path="/jobspage" element={<JobsPage />} />
       </Routes>
       {!hideLayout && <Footer />}
     </>

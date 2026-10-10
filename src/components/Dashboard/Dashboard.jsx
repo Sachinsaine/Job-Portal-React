@@ -7,9 +7,11 @@ import {
   FiDollarSign,
   FiMapPin,
 } from "react-icons/fi";
+import "../../../src/index.css";
 
 import styles from "./dashboard.module.css";
 import { JobContext } from "../../context/JobContext";
+import { Link } from "react-router-dom";
 
 export const Dashboard = () => {
   const { jobs, loading, user } = useContext(JobContext);
@@ -71,7 +73,12 @@ export const Dashboard = () => {
             here.
           </p>
           <div>
-            <button>Find jobs</button>
+            {/* <Link to="/jobspage" className={styles.btnFind}>
+              Find jobs
+            </Link> */}
+            <button>
+              <Link to="/jobspage">Find jobs</Link>
+            </button>
             <button>My applications</button>
           </div>
         </div>
