@@ -1,117 +1,295 @@
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  FiBriefcase,
+  FiMapPin,
+  FiDollarSign,
+  FiArrowLeft,
+  FiArrowRight,
+} from "react-icons/fi";
+import { Link } from "react-router-dom";
 
-// const jobSchema = z
-//   .object({
-//     company: z.string().trim().min(1, "Company is required"),
-//     jobTitle: z.string().trim().min(1, "Job title is required"),
+import styles from "./addjobs.module.css";
 
-//     experienceMin: z.coerce
-//       .number()
-//       .min(0, "Minimum experience cannot be negative"),
+const jobSchema = z
+  .object({
+    company: z.string().trim().min(1, "Company is required"),
+    jobTitle: z.string().trim().min(1, "Job title is required"),
 
-//     experienceMax: z.coerce
-//       .number()
-//       .min(0, "Maximum experience cannot be negative"),
+    experienceMin: z.coerce
+      .number()
+      .min(0, "Minimum experience cannot be negative"),
 
-//     salaryMin: z.coerce.number().min(0, "Minimum salary cannot be negative"),
-//     salaryMax: z.coerce.number().min(0, "Maximum salary cannot be negative"),
+    experienceMax: z.coerce
+      .number()
+      .min(0, "Maximum experience cannot be negative"),
 
-//     place: z.string().trim().min(1, "Location is required"),
-//     jobType: z.string().trim().min(1, "Jobtype is required"),
-//   })
-//   .refine((data) => data.experienceMax >= data.experienceMin, {
-//     message:
-//       "Maximum experience must be greater than or equal to minimum experience",
-//     path: ["experienceMax"],
-//   })
-//   .refine((data) => data.salaryMax >= data.salaryMin, {
-//     message:
-//       "Maximum Salary must be greater than or equal to minimum experience",
-//     path: ["salaryMax"],
-//   });
+    salaryMin: z.coerce.number().min(0, "Minimum salary cannot be negative"),
 
-// export const Addjobs = () => {
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//     reset,
-//   } = useForm({
-//     resolver: zodResolver(jobSchema),
-//     defaultValues: {
-//       company: "",
-//       jobTitle: "",
-//       experienceMin: 0,
-//       experienceMax: 0,
-//       salaryMin: 0,
-//       salaryMax: 0,
-//       place: "",
-//       jobType: "",
-//     },
-//   });
+    salaryMax: z.coerce.number().min(0, "Maximum salary cannot be negative"),
 
-//   const onSubmit = (formData) => {
-//     console.log(formData);
-//     reset();
-//   };
+    place: z.string().trim().min(1, "Location is required"),
 
-//   return (
-//     <div>
-//       <form onSubmit={handleSubmit(onSubmit)}>
-//         <input type="text" {...register("company")} placeholder="company" />
-//         {errors.company && <span>{errors.company.message}</span>}
-//         <input type="text" {...register("jobTitle")} placeholder="jobTitle" />
-//         {errors.jobTitle && <span>{errors.jobTitle.message}</span>}
+    jobType: z
+      .string()
+      .min(1, "Please select a job type")
+      .refine(
+        (value) =>
+          ["full-time", "part-time", "contract", "internship"].includes(value),
+        "Please select a valid job type",
+      ),
+  })
+  .refine((data) => data.experienceMax >= data.experienceMin, {
+    message:
+      "Maximum experience must be greater than or equal to minimum experience",
+    path: ["experienceMax"],
+  })
+  .refine((data) => data.salaryMax >= data.salaryMin, {
+    message: "Maximum salary must be greater than or equal to minimum salary",
+    path: ["salaryMax"],
+  });
 
-//         <input
-//           type="text"
-//           {...register("experienceMin")}
-//           placeholder="experience-Min"
-//         />
-//         {errors.experienceMin && <span>{errors.experienceMin.message}</span>}
+export const AddJobs = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(jobSchema),
+    defaultValues: {
+      company: "",
+      jobTitle: "",
+      experienceMin: "",
+      experienceMax: "",
+      salaryMin: "",
+      salaryMax: "",
+      place: "",
+      jobType: "",
+    },
+  });
 
-//         <input
-//           type="text"
-//           {...register("experienceMax")}
-//           placeholder="experience-Max"
-//         />
-//         {errors.experienceMax && <span>{errors.experienceMax.message}</span>}
+  const onSubmit = async (data) => {
+    console.log("Job details:", data);
+    reset();
+  };
 
-//         <input
-//           type="text"
-//           {...register("salaryMin")}
-//           placeholder="salary-min"
-//         />
-//         {errors.salaryMin && <span>{errors.salaryMin.message}</span>}
+  return (
+    <main className={styles.addJobsPage}>
+      <div className={styles.addJobsContainer}>
+        <section className={styles.addJobsCard}>
+          <div className={styles.cardHeader}>
+            <span className={styles.cardLabel}>NEW JOB LISTING</span>
 
-//         <input
-//           type="text"
-//           {...register("salaryMax")}
-//           placeholder="salary-max"
-//         />
-//         {errors.salaryMax && <span>{errors.salaryMax.message}</span>}
+            <h2>Post a job</h2>
 
-//         <input type="text" {...register("place")} placeholder="place" />
-//         {errors.place && <span>{errors.place.message}</span>}
+            <p>Provide the details below to create your job listing.</p>
+          </div>
 
-//         <select name="Select job type" id="" {...register("jobType")}>
-//           <option value="Select job type">Select job type</option>
-//           <option value="fulltime">Full-time</option>
-//           <option value="parttime">Part-time</option>
-//         </select>
-//         {errors.jobType && <span>{errors.jobType.message}</span>}
+          <form
+            className={styles.jobForm}
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+          >
+            <div className={styles.formGroup}>
+              <label htmlFor="company">Company name</label>
 
-//         <button type="submit">add job</button>
-//       </form>
-//     </div>
-//   );
-// };
+              <input
+                id="company"
+                type="text"
+                placeholder="e.g. Zomato"
+                autoComplete="organization"
+                {...register("company")}
+              />
 
+              {errors.company && (
+                <span className={styles.error}>{errors.company.message}</span>
+              )}
+            </div>
 
-export const AddJobs = () =>{
-  return <div>
-    
-  </div>
-}
+            <div className={styles.formGroup}>
+              <label htmlFor="jobTitle">Job title</label>
+
+              <input
+                id="jobTitle"
+                type="text"
+                placeholder="e.g. Frontend Developer"
+                {...register("jobTitle")}
+              />
+
+              {errors.jobTitle && (
+                <span className={styles.error}>{errors.jobTitle.message}</span>
+              )}
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="place">
+                <FiMapPin className={styles.labelIcon} />
+                Location
+              </label>
+
+              <input
+                id="place"
+                type="text"
+                placeholder="e.g. Hyderabad"
+                {...register("place")}
+              />
+
+              {errors.place && (
+                <span className={styles.error}>{errors.place.message}</span>
+              )}
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="jobType">Employment type</label>
+
+              <select id="jobType" {...register("jobType")}>
+                <option value="">Select job type</option>
+                <option value="full-time">Full-time</option>
+                <option value="part-time">Part-time</option>
+                <option value="contract">Contract</option>
+                <option value="internship">Internship</option>
+              </select>
+
+              {errors.jobType && (
+                <span className={styles.error}>{errors.jobType.message}</span>
+              )}
+            </div>
+
+            <div className={styles.sectionHeading}>
+              <span className={styles.sectionIcon}>
+                <FiBriefcase />
+              </span>
+
+              <div>
+                <h3>Experience requirements</h3>
+                <p>Specify the expected experience in years.</p>
+              </div>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="experienceMin">Minimum experience</label>
+
+              <div className={styles.inputWithSuffix}>
+                <input
+                  id="experienceMin"
+                  type="number"
+                  min="0"
+                  step="any"
+                  placeholder="0"
+                  {...register("experienceMin")}
+                />
+                <span>Years</span>
+              </div>
+
+              {errors.experienceMin && (
+                <span className={styles.error}>
+                  {errors.experienceMin.message}
+                </span>
+              )}
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="experienceMax">Maximum experience</label>
+
+              <div className={styles.inputWithSuffix}>
+                <input
+                  id="experienceMax"
+                  type="number"
+                  min="0"
+                  step="any"
+                  placeholder="3"
+                  {...register("experienceMax")}
+                />
+                <span>Years</span>
+              </div>
+
+              {errors.experienceMax && (
+                <span className={styles.error}>
+                  {errors.experienceMax.message}
+                </span>
+              )}
+            </div>
+
+            <div className={styles.sectionHeading}>
+              <span className={styles.sectionIcon}>
+                <FiDollarSign />
+              </span>
+
+              <div>
+                <h3>Salary range</h3>
+                <p>Enter the annual salary in lakhs (LPA).</p>
+              </div>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="salaryMin">Minimum salary</label>
+
+              <div className={styles.inputWithSuffix}>
+                <input
+                  id="salaryMin"
+                  type="number"
+                  min="0"
+                  step="any"
+                  placeholder="4"
+                  {...register("salaryMin")}
+                />
+                <span>LPA</span>
+              </div>
+
+              {errors.salaryMin && (
+                <span className={styles.error}>{errors.salaryMin.message}</span>
+              )}
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="salaryMax">Maximum salary</label>
+
+              <div className={styles.inputWithSuffix}>
+                <input
+                  id="salaryMax"
+                  type="number"
+                  min="0"
+                  step="any"
+                  placeholder="8"
+                  {...register("salaryMax")}
+                />
+                <span>LPA</span>
+              </div>
+
+              {errors.salaryMax && (
+                <span className={styles.error}>{errors.salaryMax.message}</span>
+              )}
+            </div>
+
+            <div className={styles.formActions}>
+              <Link to="/jobspage" className={styles.cancelButton}>
+                <FiArrowLeft />
+                Cancel
+              </Link>
+
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Adding job..." : "Publish job"}
+                <FiArrowRight />
+              </button>
+            </div>
+          </form>
+
+          <div className={styles.security}>
+            <span className={styles.securityIcon}>✓</span>
+
+            <p>
+              Review your job details before publishing. You can manage your
+              listings from your dashboard.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+};

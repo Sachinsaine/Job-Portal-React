@@ -1,6 +1,7 @@
 import styles from "./jobspage.module.css";
 import "../../../src/index.css";
-
+import { Link } from "react-router-dom";
+import { FiMapPin } from "react-icons/fi";
 export const JobsPage = () => {
   return (
     <div className={styles.jobsPage}>
@@ -12,7 +13,9 @@ export const JobsPage = () => {
           </p>
         </div>
 
-        <button className={styles.addJobButton}>+ Add Job</button>
+        <Link to="/postjobs" className={styles.addJobButton}>
+          + Add Job
+        </Link>
       </div>
 
       <div className={styles.filterBar}>
@@ -40,7 +43,9 @@ export const JobsPage = () => {
           <p className={styles.company}>Zomato</p>
 
           <div className={styles.jobDetails}>
-            <span>📍 Hyderabad</span>
+            <span>
+              <FiMapPin /> Hyderabad
+            </span>
             <span className={styles.salary}>₹18–24 LPA</span>
           </div>
 
