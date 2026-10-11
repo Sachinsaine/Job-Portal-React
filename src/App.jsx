@@ -10,7 +10,7 @@ import { Toaster } from "react-hot-toast";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { AuthProvider } from "./context/AuthProvider";
 import { JobsPage } from "./components/JobsPage/JobsPage";
-import { Addjobs } from "./components/AddJobs/AddJobs";
+import { Addjobs } from "./components/forms/AddJobs/AddJobs";
 
 const AppLayout = () => {
   const location = useLocation();
