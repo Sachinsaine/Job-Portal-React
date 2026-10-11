@@ -31,7 +31,7 @@ export const Navbar = () => {
             Home
           </NavLink>
 
-          <NavLink to="/jobs" onClick={handleRequireLogin}>
+          <NavLink to="/jobspage" onClick={handleRequireLogin}>
             Jobs
           </NavLink>
 

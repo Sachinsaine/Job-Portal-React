@@ -11,6 +11,9 @@ import {
 import { Link } from "react-router-dom";
 
 import styles from "./addjobs.module.css";
+import { useContext } from "react";
+import { JobContext } from "../../../context/JobContext";
+import toast from "react-hot-toast";
 
 const jobSchema = z
   .object({
@@ -51,6 +54,8 @@ const jobSchema = z
   });
 
 export const AddJobs = () => {
+  const { jobs, setJobs } = useContext(JobContext);
+
   const {
     register,
     handleSubmit,
@@ -70,9 +75,34 @@ export const AddJobs = () => {
     },
   });
 
-  const onSubmit = async (data) => {
-    console.log("Job details:", data);
-    reset();
+  console.log(jobs);
+  const onSubmit = async (formValues) => {
+    console.log("Job details:", formValues);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/jobs`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to post job");
+      }
+
+      const data = await response.json();
+      const newJob = data.job ?? data;
+      setJobs((prev) => [...prev, newJob]);
+      toast.success("Job added successfully");
+      reset();
+    } catch (error) {
+      console.log("Error", error.message);
+    }
   };
 
   return (

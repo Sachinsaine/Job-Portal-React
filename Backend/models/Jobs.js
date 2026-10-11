@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const mongoose = require("mongoose");
 
-const jobSchema = mongoose.Schema(
+const jobsSchema = new mongoose.Schema(
   {
     company: {
       type: String,
@@ -13,29 +13,25 @@ const jobSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    experience: {
-      min: {
-        type: Number,
-        required: true,
-        min: 0,
-      },
-      max: {
-        type: Number,
-        required: true,
-        min: 0,
-      },
+    experienceMin: {
+      type: Number,
+      required: true,
+      min: 0,
     },
-    salary: {
-      min: {
-        type: Number,
-        required: true,
-        min: 0,
-      },
-      max: {
-        type: Number,
-        required: true,
-        min: 0,
-      },
+    experienceMax: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    salaryMin: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    salaryMax: {
+      type: Number,
+      required: true,
+      min: 0,
     },
     place: {
       type: String,
@@ -44,15 +40,11 @@ const jobSchema = mongoose.Schema(
     },
     jobType: {
       type: String,
-      enum: ["Full-time", "Part-time"],
       required: true,
+      enum: ["full-time", "part-time", "contract", "internship"],
     },
   },
-  {
-    timestamps: true,
-  },
+  { timestamps: true },
 );
 
-const Job = mongoose.model("Job", jobSchema);
-
-module.exports = Job;
+module.exports = mongoose.model("Jobs", jobsSchema);

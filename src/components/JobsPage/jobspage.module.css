@@ -42,8 +42,6 @@
   outline-offset: 3px;
 }
 
-/* HEADER */
-
 .jobsHeader {
   display: flex;
   align-items: center;
@@ -79,8 +77,6 @@
 .addJobButton:hover {
   background: #1f5c40;
 }
-
-/* FILTER BAR */
 
 .filterBar {
   display: grid;
@@ -123,16 +119,12 @@
   cursor: pointer;
 }
 
-/* JOB GRID */
-
 .jobGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 18px;
   align-items: start;
 }
-
-/* JOB CARD */
 
 .jobCard {
   position: relative;
@@ -151,17 +143,6 @@
     transform 0.2s ease,
     box-shadow 0.2s ease,
     border-color 0.2s ease;
-}
-
-.jobCard::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  border-radius: 16px 16px 0 0;
-  background: linear-gradient(90deg, #1f5c40, #7bdca0);
 }
 
 .jobCard:hover {
@@ -185,8 +166,6 @@
   font-weight: 600;
 }
 
-/* JOB DETAILS */
-
 .jobDetails {
   display: flex;
   flex-wrap: wrap;
@@ -208,8 +187,6 @@
   background: #cff3dc;
   color: #1f5c40;
 }
-
-/* ACTIONS */
 
 .jobActions {
   display: flex;
@@ -251,7 +228,31 @@
   color: #1f5c40;
 }
 
-/* RESPONSIVE */
+.deleteButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  color: #1f5c40;
+  border: 1px solid #fee2e2;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.deleteButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.deleteButton:hover {
+  background: #cff3dc;
+}
 
 @media (max-width: 820px) {
   .jobsPage {

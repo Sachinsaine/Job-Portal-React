@@ -13,6 +13,40 @@
   box-sizing: border-box;
 }
 
+.jobCard {
+  position: relative;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  color: #dc2626;
+  border: 1px solid #fee2e2;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.deleteButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.deleteButton:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
 .addJobsPage * {
   box-sizing: border-box;
 }

@@ -9,7 +9,6 @@
   padding: 70px 30px;
 }
 
-
 .loginContainer {
   width: min(1260px, 100%);
 
@@ -22,10 +21,6 @@
 
   gap: 100px;
 }
-
-/* =========================
-   LEFT CONTENT
-========================= */
 
 .loginContent {
   max-width: 680px;
@@ -101,10 +96,6 @@
   line-height: 1.75;
 }
 
-/* =========================
-   FEATURES
-========================= */
-
 .features {
   display: flex;
 
@@ -158,10 +149,6 @@
   font-size: 10px;
 }
 
-/* =========================
-   LOGIN CARD
-========================= */
-
 .loginCard {
   padding: 40px;
 
@@ -175,10 +162,6 @@
     0 25px 70px rgba(37, 61, 44, 0.1),
     0 5px 15px rgba(37, 61, 44, 0.04);
 }
-
-/* =========================
-   CARD HEADER
-========================= */
 
 .cardHeader h2 {
   color: #253d2c;
@@ -214,10 +197,6 @@
   letter-spacing: 1.5px;
 }
 
-/* =========================
-   FORM
-========================= */
-
 .loginCard form {
   margin-top: 30px;
 }
@@ -237,10 +216,6 @@
 
   font-weight: 700;
 }
-
-/* =========================
-   PASSWORD HEADER
-========================= */
 
 .passwordHeader {
   display: flex;
@@ -265,10 +240,6 @@
 .passwordHeader a:hover {
   color: #253d2c;
 }
-
-/* =========================
-   INPUT
-========================= */
 
 .formGroup input[type="email"],
 .formGroup input[type="password"] {
@@ -308,7 +279,6 @@
   box-shadow: 0 0 0 3px rgba(77, 155, 104, 0.1);
 }
 
-
 .error {
   display: block;
 
@@ -319,7 +289,6 @@
 
   font-size: 10px;
 }
-
 
 .remember {
   display: flex;
@@ -344,10 +313,6 @@
 
   cursor: pointer;
 }
-
-/* =========================
-   LOGIN BUTTON
-========================= */
 
 .loginButton {
   width: 100%;
@@ -392,10 +357,6 @@
   box-shadow: 0 10px 25px rgba(37, 61, 44, 0.16);
 }
 
-/* =========================
-   DIVIDER
-========================= */
-
 .divider {
   display: flex;
   align-items: center;
@@ -419,10 +380,6 @@
 
   background: #e8eee9;
 }
-
-/* =========================
-   SIGNUP
-========================= */
 
 .signupButton {
   width: 100%;
@@ -456,10 +413,6 @@
   background: #f5faf6;
 }
 
-/* =========================
-   SECURITY
-========================= */
-
 .security {
   margin-top: 23px;
 
@@ -491,10 +444,6 @@
   font-size: 14px;
 }
 
-/* =========================
-   TABLET
-========================= */
-
 @media (max-width: 1050px) {
   .loginContainer {
     grid-template-columns: 1fr 430px;
@@ -512,10 +461,6 @@
     margin-top: 55px;
   }
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 800px) {
   .loginPage {
@@ -556,10 +501,6 @@
     margin: 0 auto;
   }
 }
-
-/* =========================
-   SMALL MOBILE
-========================= */
 
 @media (max-width: 500px) {
   .loginPage {
