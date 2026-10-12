@@ -5,14 +5,36 @@ import { FiMapPin, FiTrash2 } from "react-icons/fi";
 import { useContext, useState } from "react";
 import { JobContext } from "../../context/JobContext";
 import toast from "react-hot-toast";
+import { DeleteDialog } from "../DeleteDialog/DeleteDialog";
 
 export const JobsPage = () => {
-  const { jobs, setJobs } = useContext(JobContext);
-  const [inputValue, setInputValue] = useState("");
+  const { jobs, setJobs, loading } = useContext(JobContext);
+  const [inputTitle, setInputTitle] = useState("");
+  const [inputPlace, setInputPlace] = useState("");
+  const [inputJobType, setInputJobType] = useState("");
 
-  const filterJobs = jobs.filter((job) =>
-    job.jobTitle?.toLowerCase().includes(inputValue.toLowerCase()),
-  );
+  const filteredJobs = jobs.filter((job) => {
+    const filterByRole = job.jobTitle
+      ?.toLowerCase()
+      .includes(inputTitle.toLowerCase());
+
+    const filterByCompany = job.company
+      ?.toLowerCase()
+      .includes(inputTitle.toLowerCase());
+
+    const filterByLocation = job.place
+      ?.toLowerCase()
+      .includes(inputPlace.toLowerCase());
+
+    const filterByJobType =
+      !inputJobType ||
+      (job.jobType || "").trim().toLowerCase() ===
+        inputJobType.trim().toLowerCase();
+
+    return (
+      (filterByRole || filterByCompany) && filterByLocation && filterByJobType
+    );
+  });
 
   const handleDelete = async (jobId) => {
     console.log(jobId);
@@ -32,13 +54,12 @@ export const JobsPage = () => {
 
       setJobs((prev) => prev.filter((job) => job._id !== jobId));
 
-      toast.error("Job has been deleted successfully");
+      toast.success("Job has been deleted successfully");
     } catch (error) {
       console.error("Delete job error:", error);
       toast.error(error.message || "Failed to delete job");
     }
   };
-  console.log(filterJobs);
 
   return (
     <div className={styles.jobsPage}>
@@ -58,14 +79,25 @@ export const JobsPage = () => {
       <div className={styles.filterBar}>
         <input
           type="text"
-          placeholder="Search title or company"
-          aria-label="Search title or company"
-          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Search title"
+          aria-label="Search title"
+          value={inputTitle}
+          onChange={(e) => setInputTitle(e.target.value)}
         />
 
-        <input type="text" placeholder="Location" aria-label="Location" />
+        <input
+          type="text"
+          placeholder="Location"
+          aria-label="Location"
+          value={inputPlace}
+          onChange={(e) => setInputPlace(e.target.value)}
+        />
 
-        <select defaultValue="" aria-label="Job type">
+        <select
+          value={inputJobType}
+          aria-label="Job type"
+          onChange={(e) => setInputJobType(e.target.value)}
+        >
           <option value="">All types</option>
           <option value="Full-time">Full-time</option>
           <option value="Part-time">Part-time</option>
@@ -76,38 +108,47 @@ export const JobsPage = () => {
       </div>
 
       <div className={styles.jobGrid}>
-        {filterJobs.map((jobItem) => {
-          return (
-            <div className={styles.jobCard}>
-              <h2>{jobItem.jobTitle}</h2>
-              <button
-                className={styles.deleteButton}
-                onClick={() => handleDelete(jobItem._id)}
-                aria-label={`Delete ${jobItem.jobTitle}`}
-                title="Delete job"
-              >
-                <FiTrash2 />
-              </button>
-              <p className={styles.company}>{jobItem.company}</p>
+        {loading === 0 ? (
+          <h1>Loading...</h1>
+        ) : filteredJobs.length === 0 ? (
+          <h2>No jobs found. Try changing your filters.</h2>
+        ) : (
+          filteredJobs.map((jobItem) => {
+            return (
+              <div className={styles.jobCard} key={jobItem._id}>
+                <h2>{jobItem.jobTitle}</h2>
+                <DeleteDialog
+                  jobId={jobItem._id}
+                  onDelete={handleDelete}
+                  trigger={
+                    <button className={styles.deleteButton} title="Delete job">
+                      <FiTrash2 />
+                    </button>
+                  }
+                />
+                <p className={styles.company}>{jobItem.company}</p>
 
-              <div className={styles.jobDetails}>
-                <span>
-                  <FiMapPin /> {jobItem.place}
-                </span>
-                <span className={styles.salary}>
-                  {" "}
-                  ₹ {jobItem.salaryMin} LPA-{jobItem.salaryMax} LPA
-                </span>
+                <div className={styles.jobDetails}>
+                  <span>
+                    <FiMapPin /> {jobItem.place}
+                  </span>
+                  <span className={styles.salary}>
+                    {" "}
+                    ₹ {jobItem?.salaryMin} LPA-{jobItem.salaryMax} LPA
+                  </span>
+                  {/* <span>{jobItem.jobType}</span> */}
+                </div>
+
+                <div className={styles.jobActions}>
+                  <button className={styles.applyButton}>Apply now</button>
+
+                  <button className={styles.saveButton}>Save</button>
+                </div>
+                {/* <DeleteDialog onDelete={handleDelete} /> */}
               </div>
-
-              <div className={styles.jobActions}>
-                <button className={styles.applyButton}>Apply now</button>
-
-                <button className={styles.saveButton}>Save</button>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
     </div>
   );

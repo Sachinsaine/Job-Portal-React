@@ -1,0 +1,55 @@
+.trashIcon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+}
+
+.deleteActions {
+  display: flex;
+  gap: 10px;
+  padding: 16px 24px 20px;
+}
+
+.deleteActions button {
+  flex: 1;
+  min-width: 0;
+  min-height: 42px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.deleteButton {
+  border: 1px solid #b91c1c;
+  background: #dc2626;
+  color: #fff;
+}
+
+.deleteButton:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.cancelButton {
+  border: 1px solid #e1e9e3;
+  background: #fff;
+  color: #10241a;
+}
+
+.cancelButton:hover {
+  border-color: #3e8e5e;
+  background: #f4faf5;
+  color: #1f5c40;
+}
+
+.deleteActions button:focus-visible {
+  outline: 3px solid #86efac;
+  outline-offset: 2px;
+}
