@@ -111,7 +111,10 @@ export const JobsPage = () => {
         {loading === 0 ? (
           <h1>Loading...</h1>
         ) : filteredJobs.length === 0 ? (
-          <h2>No jobs found. Try changing your filters.</h2>
+          <div className={styles.emptyState}>
+            <h2>No jobs found</h2>
+            <p>Try changing your filters to find relevant jobs.</p>
+          </div>
         ) : (
           filteredJobs.map((jobItem) => {
             return (
