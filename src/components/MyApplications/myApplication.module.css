@@ -1,0 +1,307 @@
+.applicationsPage {
+  margin: 30px;
+  padding: 30px;
+  min-height: calc(100vh - 80px);
+  background: #fff;
+  border-radius: 14px;
+  color: #10241a;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #dce9e0;
+  margin-bottom: 20px;
+}
+
+.pageHeader h1 {
+  margin: 0 0 8px;
+  color: #14382a;
+  font-size: 30px;
+  font-weight: 750;
+}
+
+.pageHeader p {
+  margin: 0;
+  color: #718278;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.applicationCount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  padding: 14px 20px;
+  border: 1px solid #dce9e0;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.applicationCount span {
+  color: #14382a;
+  font-size: 26px;
+  font-weight: 750;
+}
+
+.applicationCount small {
+  margin-top: 4px;
+  color: #718278;
+  font-size: 12px;
+}
+
+.applicationGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.applicationCard {
+  position: relative;
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #e2ebe5;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(20, 56, 42, 0.04);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.applicationCard:hover {
+  transform: translateY(-3px);
+  border-color: #b9d5c2;
+  box-shadow: 0 10px 28px rgba(20, 56, 42, 0.08);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.jobInitial {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #ddeee3;
+  color: #14382a;
+  font-size: 21px;
+  font-weight: 750;
+}
+
+.jobHeading {
+  flex: 1;
+  min-width: 0;
+}
+
+.jobHeading h2 {
+  margin: 0 0 6px;
+  overflow-wrap: anywhere;
+  color: #14382a;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.jobHeading p {
+  margin: 0;
+  color: #718278;
+  font-size: 14px;
+}
+
+.statusBadge {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #e5f4e9;
+  color: #1f5c40;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.jobDetails {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 20px 0;
+  border-top: 1px solid #edf1ee;
+  border-bottom: 1px solid #edf1ee;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.detailLabel {
+  color: #89968e;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.detailValue {
+  overflow-wrap: anywhere;
+  color: #263b30;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.jobType {
+  align-self: flex-start;
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: #f0f5f1;
+  color: #1f5c40;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.uploadedDate {
+  color: #89968e;
+  font-size: 12px;
+}
+
+.withdrawButton {
+  padding: 10px 14px;
+  border: 1px solid #ead2d2;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #b42318;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.withdrawButton:hover {
+  border-color: #e5b7b3;
+  background: #fff3f2;
+}
+
+.statusState,
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  padding: 32px 20px;
+  border: 1px dashed #cbdacf;
+  border-radius: 16px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.statusState p {
+  color: #718278;
+}
+
+.emptyState h2 {
+  margin: 0 0 10px;
+  color: #14382a;
+  font-size: 24px;
+}
+
+.emptyState p {
+  max-width: 420px;
+  margin: 0;
+  color: #718278;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .applicationsPage {
+    padding: 24px;
+  }
+
+  .applicationGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .applicationsPage {
+    padding: 18px 14px;
+  }
+
+  .pageHeader {
+    align-items: flex-start;
+  }
+
+  .pageHeader h1 {
+    font-size: 24px;
+  }
+
+  .pageHeader p {
+    font-size: 13px;
+  }
+
+  .applicationCount {
+    min-width: 70px;
+    padding: 10px;
+  }
+
+  .applicationCount span {
+    font-size: 22px;
+  }
+
+  .applicationCard {
+    padding: 18px;
+  }
+
+  .cardHeader {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .jobHeading {
+    flex-basis: calc(100% - 65px);
+  }
+
+  .statusBadge {
+    margin-left: auto;
+  }
+
+  .jobDetails {
+    gap: 16px 10px;
+  }
+
+  .cardFooter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .withdrawButton {
+    width: 100%;
+  }
+}

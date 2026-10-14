@@ -8,7 +8,8 @@ import toast from "react-hot-toast";
 import { DeleteDialog } from "../DeleteDialog/DeleteDialog";
 
 export const JobsPage = () => {
-  const { jobs, setJobs, loading } = useContext(JobContext);
+  const { jobs, setJobs, loading, appliedJobs, setAppliedJobs } =
+    useContext(JobContext);
   const [inputTitle, setInputTitle] = useState("");
   const [inputPlace, setInputPlace] = useState("");
   const [inputJobType, setInputJobType] = useState("");
@@ -35,6 +36,16 @@ export const JobsPage = () => {
       (filterByRole || filterByCompany) && filterByLocation && filterByJobType
     );
   });
+
+  const handleApply = (jobItem) => {
+    setAppliedJobs((prev) => {
+      const alreadyApplied = prev.some((job) => job._id === jobItem._id);
+
+      if (alreadyApplied) return prev;
+      return [...prev, jobItem];
+    });
+    toast.success("Application submitted successfully!");
+  };
 
   const handleDelete = async (jobId) => {
     console.log(jobId);
@@ -143,7 +154,17 @@ export const JobsPage = () => {
                 </div>
 
                 <div className={styles.jobActions}>
-                  <button className={styles.applyButton}>Apply now</button>
+                  <button
+                    className={styles.applyButton}
+                    onClick={() => handleApply(jobItem)}
+                    disabled={appliedJobs.some(
+                      (job) => job._id === jobItem._id,
+                    )}
+                  >
+                    {appliedJobs.some((job) => job._id === jobItem._id)
+                      ? "Applied"
+                      : "Apply now"}
+                  </button>
 
                   <button className={styles.saveButton}>Save</button>
                 </div>

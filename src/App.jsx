@@ -11,6 +11,7 @@ import { Dashboard } from "./components/Dashboard/Dashboard";
 import { AuthProvider } from "./context/AuthProvider";
 import { JobsPage } from "./components/JobsPage/JobsPage";
 import { AddJobs } from "./components/forms/AddJobs/AddJobs";
+import { Myapplication } from "./components/MyApplications/MyApplictions";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -27,6 +28,7 @@ const AppLayout = () => {
         <Route path="/dashboard" element={<Dashboard />} />{" "}
         <Route path="/jobspage" element={<JobsPage />} />
         <Route path="/postjobs" element={<AddJobs />} />
+        <Route path="/myapplicatoins" element={<Myapplication />} />
       </Routes>
       {!hideLayout && <Footer />}
     </>

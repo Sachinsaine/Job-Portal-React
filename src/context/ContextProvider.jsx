@@ -6,6 +6,7 @@ export const ContextProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const { jobs, setJobs, error, loading } = useJobs();
   const [user, setUser] = useState(null);
+  const [appliedJobs, setAppliedJobs] = useState([]);
 
   return (
     <JobContext.Provider
@@ -18,6 +19,8 @@ export const ContextProvider = ({ children }) => {
         setJobs,
         user,
         setUser,
+        appliedJobs,
+        setAppliedJobs,
       }}
     >
       {children}

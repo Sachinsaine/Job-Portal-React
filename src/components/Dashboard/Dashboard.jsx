@@ -14,7 +14,7 @@ import { JobContext } from "../../context/JobContext";
 import { Link } from "react-router-dom";
 
 export const Dashboard = () => {
-  const { jobs, loading, user } = useContext(JobContext);
+  const { loading, user, appliedJobs } = useContext(JobContext);
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -79,11 +79,13 @@ export const Dashboard = () => {
             <button>
               <Link to="/jobspage">Find jobs</Link>
             </button>
-            <button>My applications</button>
+            <button>
+              <Link to="/myapplicatoins">My applications</Link>
+            </button>
           </div>
         </div>
         <h5>Recent applications</h5>
-        {jobs.map((job) => (
+        {appliedJobs.map((job) => (
           <div key={job._id} className={styles.jobCard}>
             <div>
               <div>
