@@ -12,7 +12,7 @@ export const JobsPage = () => {
     useContext(JobContext);
   const [inputTitle, setInputTitle] = useState("");
   const [inputPlace, setInputPlace] = useState("");
-  const [inputJobType, setInputJobType] = useState("");
+  const [inputJobType, setInputJobType] = useState("All");
 
   const filteredJobs = jobs.filter((job) => {
     const filterByRole = job.jobTitle
@@ -28,9 +28,7 @@ export const JobsPage = () => {
       .includes(inputPlace.toLowerCase());
 
     const filterByJobType =
-      !inputJobType ||
-      (job.jobType || "").trim().toLowerCase() ===
-        inputJobType.trim().toLowerCase();
+      inputJobType === "All" || job.jobType === inputJobType;
 
     return (
       (filterByRole || filterByCompany) && filterByLocation && filterByJobType
@@ -38,12 +36,13 @@ export const JobsPage = () => {
   });
 
   const handleApply = (jobItem) => {
-    setAppliedJobs((prev) => {
-      const alreadyApplied = prev.some((job) => job._id === jobItem._id);
+    const alreadyApplied = appliedJobs.some((job) => job._id === jobItem._id);
 
-      if (alreadyApplied) return prev;
-      return [...prev, jobItem];
-    });
+    if (alreadyApplied) {
+      toast.error("You have already applied!");
+      return;
+    }
+    setAppliedJobs((prev) => [...prev, jobItem]);
     toast.success("Application submitted successfully!");
   };
 
@@ -109,17 +108,19 @@ export const JobsPage = () => {
           aria-label="Job type"
           onChange={(e) => setInputJobType(e.target.value)}
         >
-          <option value="">All types</option>
-          <option value="Full-time">Full-time</option>
-          <option value="Part-time">Part-time</option>
-          <option value="Contract">Contract</option>
-          <option value="Internship">Internship</option>
-          <option value="Remote">Remote</option>
+          <option value="All">All</option>
+          {[...new Set(jobs.map((job) => job.jobType))].map((job) => {
+            return (
+              <option value={job} key={job}>
+                {job}
+              </option>
+            );
+          })}
         </select>
       </div>
 
       <div className={styles.jobGrid}>
-        {loading === 0 ? (
+        {loading ? (
           <h1>Loading...</h1>
         ) : filteredJobs.length === 0 ? (
           <div className={styles.emptyState}>
@@ -150,7 +151,7 @@ export const JobsPage = () => {
                     {" "}
                     ₹ {jobItem?.salaryMin} LPA-{jobItem.salaryMax} LPA
                   </span>
-                  {/* <span>{jobItem.jobType}</span> */}
+                  {/* <span className={styles.jobType}>{jobItem.jobType}</span> */}
                 </div>
 
                 <div className={styles.jobActions}>

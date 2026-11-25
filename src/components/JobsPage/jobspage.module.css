@@ -188,6 +188,10 @@
   color: #1f5c40;
 }
 
+.jobDetails .jobType {
+  background: none;
+}
+
 .jobActions {
   display: flex;
   gap: 10px;
