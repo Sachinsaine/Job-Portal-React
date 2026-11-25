@@ -1,22 +1,26 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
-import { requireLogin } from "../../utils/authGuard";
+import { AuthContext } from "../../context/AuthContext";
+import toast from "react-hot-toast";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const handleRequireLogin = (e) => {
-    setMenuOpen(false);
-    e.preventDefault();
-    requireLogin();
-  };
+  const { user, loading, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const closeMenu = () => {
     setMenuOpen(false);
+  };
+
+  const handleLogout = async () => {
+    await logOut();
+    toast.success("Logout successful!");
+    navigate("/");
+    closeMenu();
   };
 
   return (
@@ -31,32 +35,30 @@ export const Navbar = () => {
             Home
           </NavLink>
 
-          <NavLink to="/jobspage" onClick={handleRequireLogin}>
-            Jobs
-          </NavLink>
+          <NavLink to="/jobspage">Jobs</NavLink>
 
-          <NavLink to="/companies" onClick={handleRequireLogin}>
-            Companies
-          </NavLink>
+          <NavLink to="/myapplicatoins">Applications</NavLink>
 
-          <NavLink to="/applications" onClick={handleRequireLogin}>
-            Applications
-          </NavLink>
-
-          <NavLink to="/about" onClick={handleRequireLogin}>
-            About
-          </NavLink>
+          <NavLink to="/career">Careers</NavLink>
+          <NavLink to="/about">About</NavLink>
         </nav>
 
         <div className={styles.navActions}>
-          <Link to="/signin" className={styles.signIn}>
-            Sign In
-          </Link>
-
-          <Link to="/signup" className={styles.postJob}>
+          {/* <Link to="/signup" className={styles.postJob}>
             Get Started
             <FiArrowUpRight />
-          </Link>
+          </Link> */}
+
+          {!loading &&
+            (user ? (
+              <button className={styles.postJob} onClick={handleLogout}>
+                Logout
+              </button>
+            ) : (
+              <Link to="/signin" className={styles.postJob}>
+                Sign In
+              </Link>
+            ))}
         </div>
 
         <button
@@ -77,17 +79,11 @@ export const Navbar = () => {
               Home
             </NavLink>
 
-            <NavLink to="/jobs" onClick={handleRequireLogin}>
-              Jobs
-            </NavLink>
+            <NavLink to="/jobs">Jobs</NavLink>
 
-            <NavLink to="/companies" onClick={handleRequireLogin}>
-              Companies
-            </NavLink>
+            <NavLink to="/companies">Companies</NavLink>
 
-            <NavLink to="/applications" onClick={handleRequireLogin}>
-              Applications
-            </NavLink>
+            <NavLink to="/applications">Applications</NavLink>
 
             <NavLink to="/about" onClick={closeMenu}>
               About
@@ -95,22 +91,31 @@ export const Navbar = () => {
           </nav>
 
           <div className={styles.mobileActions}>
-            <Link
-              to="/signin"
-              className={styles.mobileSignIn}
-              onClick={closeMenu}
-            >
-              Sign In
-            </Link>
+            {!loading &&
+              (user ? (
+                <button className={styles.mobileSignIn} onClick={handleLogout}>
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <Link
+                    to="/signin"
+                    className={styles.mobileSignIn}
+                    onClick={closeMenu}
+                  >
+                    Sign In
+                  </Link>
 
-            <Link
-              to="/signup"
-              className={styles.mobilePostJob}
-              onClick={closeMenu}
-            >
-              Get Started
-              <FiArrowUpRight />
-            </Link>
+                  <Link
+                    to="/signup"
+                    className={styles.mobilePostJob}
+                    onClick={closeMenu}
+                  >
+                    Get Started
+                    <FiArrowUpRight />
+                  </Link>
+                </>
+              ))}
           </div>
         </div>
       )}

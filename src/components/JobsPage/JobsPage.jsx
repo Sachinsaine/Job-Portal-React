@@ -2,17 +2,27 @@ import styles from "./jobspage.module.css";
 import "../../../src/index.css";
 import { Link } from "react-router-dom";
 import { FiMapPin, FiTrash2 } from "react-icons/fi";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { JobContext } from "../../context/JobContext";
 import toast from "react-hot-toast";
 import { DeleteDialog } from "../DeleteDialog/DeleteDialog";
 
 export const JobsPage = () => {
-  const { jobs, setJobs, loading, appliedJobs, setAppliedJobs } =
-    useContext(JobContext);
-  const [inputTitle, setInputTitle] = useState("");
-  const [inputPlace, setInputPlace] = useState("");
-  const [inputJobType, setInputJobType] = useState("All");
+  const {
+    jobs,
+    setJobs,
+    loading,
+    appliedJobs,
+    setAppliedJobs,
+    inputTitle,
+    setInputTitle,
+    inputPlace,
+    setInputPlace,
+    inputJobType,
+    setInputJobType,
+    currentPage,
+    setCurrentPage,
+  } = useContext(JobContext);
 
   const filteredJobs = jobs.filter((job) => {
     const filterByRole = job.jobTitle
@@ -71,6 +81,15 @@ export const JobsPage = () => {
     }
   };
 
+  const jobsPerPage = 12;
+
+  const lastIndex = currentPage * jobsPerPage;
+  const firstIndex = lastIndex - jobsPerPage;
+
+  const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+
+  const currentPageJobs = filteredJobs.slice(firstIndex, lastIndex);
+
   return (
     <div className={styles.jobsPage}>
       <div className={styles.jobsHeader}>
@@ -122,17 +141,17 @@ export const JobsPage = () => {
       <div className={styles.jobGrid}>
         {loading ? (
           <h1>Loading...</h1>
-        ) : filteredJobs.length === 0 ? (
+        ) : currentPageJobs.length === 0 ? (
           <div className={styles.emptyState}>
             <h2>No jobs found</h2>
             <p>Try changing your filters to find relevant jobs.</p>
           </div>
         ) : (
-          filteredJobs.map((jobItem) => {
+          currentPageJobs.map((jobItem) => {
             return (
               <div className={styles.jobCard} key={jobItem._id}>
                 <h2>{jobItem.jobTitle}</h2>
-                <DeleteDialog
+                {/* <DeleteDialog
                   jobId={jobItem._id}
                   onDelete={handleDelete}
                   trigger={
@@ -140,7 +159,7 @@ export const JobsPage = () => {
                       <FiTrash2 />
                     </button>
                   }
-                />
+                /> */}
                 <p className={styles.company}>{jobItem.company}</p>
 
                 <div className={styles.jobDetails}>
@@ -174,6 +193,29 @@ export const JobsPage = () => {
             );
           })
         )}
+      </div>
+      <div className={styles.pagination}>
+        <span className={styles.pageInfo}>
+          Page {currentPage} of {totalPages}
+        </span>
+
+        <div className={styles.paginationButtons}>
+          <button
+            className={styles.pageButton}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+
+          <button
+            className={styles.pageButton}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

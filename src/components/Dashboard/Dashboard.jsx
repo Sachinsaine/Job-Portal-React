@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import {
+  FiArrowRight,
   FiBriefcase,
   FiChevronLeft,
   FiChevronRight,
@@ -85,19 +86,38 @@ export const Dashboard = () => {
           </div>
         </div>
         <h5>Recent applications</h5>
-        {appliedJobs.map((job) => (
-          <div key={job._id} className={styles.jobCard}>
-            <div>
+        {appliedJobs.length === 0 ? (
+          <div className={styles.emptyState}>
+            <div className={styles.emptyIcon}>
+              <FiBriefcase />
+            </div>
+
+            <h2>No applications yet</h2>
+
+            <p>
+              You haven't applied to any jobs yet. Explore available
+              opportunities and take the next step in your career.
+            </p>
+
+            <Link to="/jobspage" className={styles.browseButton}>
+              Browse Jobs <FiArrowRight />
+            </Link>
+          </div>
+        ) : (
+          appliedJobs.map((job) => (
+            <div key={job._id} className={styles.jobCard}>
               <div>
-                <h2>{job.jobTitle}</h2>
-                <p>{job.company} . 2 days ago</p>
-              </div>
-              <div>
-                <button>Applied</button>
+                <div>
+                  <h2>{job.jobTitle}</h2>
+                  <p>{job.company} . 2 days ago</p>
+                </div>
+                <div>
+                  <button>Applied</button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </main>
     </div>
   );

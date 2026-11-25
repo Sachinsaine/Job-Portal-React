@@ -7,6 +7,9 @@ import styles from "./Registration.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import logo from "../../../assets/logo.svg";
+import { useState } from "react";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 const registrationSchema = z
   .object({
@@ -80,6 +83,9 @@ export const Registration = () => {
       toast.error("Something went wrong. Please try again.");
     }
   };
+
+  const [isPassword, setIsPassword] = useState(false);
+  const [isConfirmPassword, setIsConfirmPassword] = useState(false);
 
   return (
     <main className={styles.registrationPage}>
@@ -186,13 +192,24 @@ export const Registration = () => {
             <div className={styles.formGroup}>
               <label htmlFor="password">Password</label>
 
-              <input
-                id="password"
-                type="password"
-                placeholder="Create a password"
-                autoComplete="new-password"
-                {...register("password")}
-              />
+              <div className={styles.passwordWrapper}>
+                <input
+                  id="password"
+                  type={isPassword ? "text" : "password"}
+                  placeholder="Create a password"
+                  autoComplete="new-password"
+                  {...register("password")}
+                />
+
+                <button
+                  type="button"
+                  className={styles.passwordToggle}
+                  onClick={() => setIsPassword((prev) => !prev)}
+                  aria-label={isPassword ? "Hide password" : "Show password"}
+                >
+                  {isPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
+              </div>
 
               {errors.password && (
                 <span className={styles.error}>{errors.password.message}</span>
@@ -202,13 +219,26 @@ export const Registration = () => {
             <div className={styles.formGroup}>
               <label htmlFor="confirmPassword">Confirm password</label>
 
-              <input
-                id="confirmPassword"
-                type="password"
-                placeholder="Confirm your password"
-                autoComplete="new-password"
-                {...register("confirmPassword")}
-              />
+              <div className={styles.passwordWrapper}>
+                <input
+                  id="confirmPassword"
+                  type={isConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm your password"
+                  autoComplete="new-password"
+                  {...register("confirmPassword")}
+                />
+
+                <button
+                  type="button"
+                  className={styles.passwordToggle}
+                  onClick={() => setIsConfirmPassword((prev) => !prev)}
+                  aria-label={
+                    isConfirmPassword ? "Hide password" : "Show password"
+                  }
+                >
+                  {isConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
+              </div>
 
               {errors.confirmPassword && (
                 <span className={styles.error}>
@@ -216,6 +246,7 @@ export const Registration = () => {
                 </span>
               )}
             </div>
+
             <label className={styles.terms}>
               <input type="checkbox" {...register("terms")} />
 

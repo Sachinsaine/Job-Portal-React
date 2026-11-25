@@ -36,11 +36,13 @@ export const AuthProvider = ({ children }) => {
         credentials: "include",
       });
 
-      if (response.ok) {
-        setUser(null);
+      if (!response.ok) {
+        throw new Error("Logout failed");
       }
     } catch (error) {
       console.log("Logout error:", error);
+    } finally {
+      setUser(null);
     }
   };
   useEffect(() => {

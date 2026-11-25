@@ -1,7 +1,11 @@
 /* eslint-disable no-undef */
 
 const express = require("express");
-const { userSignup, userSignin } = require("../controllers/authController");
+const {
+  userSignup,
+  userSignin,
+  logOut,
+} = require("../controllers/authController");
 const {
   addJobs,
   getJobs,
@@ -12,6 +16,7 @@ const authMiddleware = require("../Middleware/authMiddleware");
 
 router.post("/signup", userSignup);
 router.post("/signin", userSignin);
+router.post("/logout", logOut);
 router.post("/jobs", addJobs);
 router.get("/jobs", getJobs);
 router.delete("/jobs/:id", deleteJobs);

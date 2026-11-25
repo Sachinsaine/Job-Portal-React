@@ -12,8 +12,10 @@ import styles from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
 import toast from "react-hot-toast";
-import { useContext } from "react";
-import { JobContext } from "../../../context/JobContext";
+import { useContext, useState } from "react";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import { AuthContext } from "../../../context/AuthContext";
 
 const loginSchema = z.object({
   email: z.string().trim().email("Please enter a valid email address"),
@@ -22,7 +24,8 @@ const loginSchema = z.object({
 });
 
 export const Login = () => {
-  const { setUser } = useContext(JobContext);
+  const { setUser } = useContext(AuthContext);
+  const [isPassword, setIsPassword] = useState(false);
 
   const {
     register,
@@ -147,17 +150,27 @@ export const Login = () => {
             <div className={styles.formGroup}>
               <div className={styles.passwordHeader}>
                 <label htmlFor="password">Password</label>
-
                 <a href="#forgot-password">Forgot password?</a>
               </div>
 
-              <input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                autoComplete="current-password"
-                {...register("password")}
-              />
+              <div className={styles.passwordWrapper}>
+                <input
+                  id="password"
+                  type={isPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  autoComplete="current-password"
+                  {...register("password")}
+                />
+
+                <button
+                  type="button"
+                  className={styles.passwordToggle}
+                  onClick={() => setIsPassword((prev) => !prev)}
+                  aria-label={isPassword ? "Hide password" : "Show password"}
+                >
+                  {isPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
+              </div>
 
               {errors.password && (
                 <span className={styles.error}>{errors.password.message}</span>

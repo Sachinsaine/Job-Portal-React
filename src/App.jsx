@@ -1,6 +1,5 @@
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { ContextProvider } from "./context/ContextProvider";
 import { Homepage } from "./components/Homepage/Homepage";
 import { Navbar } from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
@@ -12,37 +11,31 @@ import { AuthProvider } from "./context/AuthProvider";
 import { JobsPage } from "./components/JobsPage/JobsPage";
 import { AddJobs } from "./components/forms/AddJobs/AddJobs";
 import { Myapplication } from "./components/MyApplications/MyApplictions";
+import { JobContextProvider } from "./context/JobContextProvider";
+import { ProtectedRoutes } from "./components/ProtectedRoutes/ProtectedRoutes";
 
-const AppLayout = () => {
-  const location = useLocation();
-
-  const hideLayout =
-    location.pathname === "/signin" || location.pathname === "/signup";
-  return (
-    <>
-      {!hideLayout && <Navbar />}
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/signin" element={<Login />} />
-        <Route path="/signup" element={<Registration />} />
-        <Route path="/dashboard" element={<Dashboard />} />{" "}
-        <Route path="/jobspage" element={<JobsPage />} />
-        <Route path="/postjobs" element={<AddJobs />} />
-        <Route path="/myapplicatoins" element={<Myapplication />} />
-      </Routes>
-      {!hideLayout && <Footer />}
-    </>
-  );
-};
 function App() {
   return (
     <>
       <BrowserRouter>
         <AuthProvider>
-          <ContextProvider>
+          <JobContextProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/signin" element={<Login />} />
+              <Route path="/signup" element={<Registration />} />
+
+              <Route element={<ProtectedRoutes />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/jobspage" element={<JobsPage />} />
+                <Route path="/postjobs" element={<AddJobs />} />
+                <Route path="/myapplicatoins" element={<Myapplication />} />
+              </Route>
+            </Routes>
+            <Footer />
             <Toaster position="top-right" />
-            <AppLayout />
-          </ContextProvider>
+          </JobContextProvider>
         </AuthProvider>
       </BrowserRouter>
     </>

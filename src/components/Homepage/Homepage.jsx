@@ -1,4 +1,3 @@
-import { requireLogin } from "../../utils/authGuard";
 import styles from "./Homepage.module.css";
 import {
   FiArrowRight,
@@ -88,23 +87,21 @@ export const Homepage = () => {
           </p>
 
           <div className={styles.heroActions}>
-            <button className={styles.primaryButton} onClick={requireLogin}>
+            <button className={styles.primaryButton}>
               Explore Jobs
               <FiArrowRight />
             </button>
 
-            <button className={styles.secondaryButton} onClick={requireLogin}>
-              Create Profile
-            </button>
+            <button className={styles.secondaryButton}>Create Profile</button>
           </div>
 
           <div className={styles.popularSearches}>
             <span>Popular roles</span>
 
-            <button onClick={requireLogin}>Frontend Developer</button>
-            <button onClick={requireLogin}>React Developer</button>
-            <button onClick={requireLogin}>UI/UX Designer</button>
-            <button onClick={requireLogin}>Data Analyst</button>
+            <button>Frontend Developer</button>
+            <button>React Developer</button>
+            <button>UI/UX Designer</button>
+            <button>Data Analyst</button>
           </div>
         </div>
 
@@ -175,7 +172,7 @@ export const Homepage = () => {
             <h2>What kind of work are you looking for?</h2>
           </div>
 
-          <button className={styles.viewAll} onClick={requireLogin}>
+          <button className={styles.viewAll}>
             View all
             <FiArrowRight />
           </button>
@@ -206,7 +203,7 @@ export const Homepage = () => {
             <h2>Jobs worth taking a look at</h2>
           </div>
 
-          <button className={styles.viewAll} onClick={requireLogin}>
+          <button className={styles.viewAll}>
             Explore all jobs
             <FiArrowRight />
           </button>
@@ -218,9 +215,7 @@ export const Homepage = () => {
               <div className={styles.jobTop}>
                 <div className={styles.companyLogo}>{job.logo}</div>
 
-                <button className={styles.bookmark} onClick={requireLogin}>
-                  ♡
-                </button>
+                <button className={styles.bookmark}>♡</button>
               </div>
 
               <span className={styles.jobCompany}>{job.company}</span>
@@ -242,7 +237,7 @@ export const Homepage = () => {
                   <span>{job.type}</span>
                 </div>
 
-                <button className={styles.applyButton} onClick={requireLogin}>
+                <button className={styles.applyButton}>
                   View Job
                   <FiArrowRight />
                 </button>
@@ -280,14 +275,12 @@ export const Homepage = () => {
           </div>
 
           <div className={styles.ctaActions}>
-            <button className={styles.primaryCta} onClick={requireLogin}>
+            <button className={styles.primaryCta}>
               Get Started
               <FiArrowRight />
             </button>
 
-            <button className={styles.secondaryCta} onClick={requireLogin}>
-              Browse Jobs
-            </button>
+            <button className={styles.secondaryCta}>Browse Jobs</button>
           </div>
         </div>
       </section>
