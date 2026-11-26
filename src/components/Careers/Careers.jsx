@@ -146,7 +146,6 @@ export default function CareersPage() {
 
   return (
     <div className={styles.page}>
-      {/* HERO */}
       <header className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.eyebrow}>
@@ -221,7 +220,6 @@ export default function CareersPage() {
         </div>
       </header>
 
-      {/* STATS */}
       <section className={styles.statsSection}>
         <div className={styles.stats}>
           {STATS.map((s) => (
@@ -233,7 +231,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* CATEGORIES */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <div>
@@ -275,7 +272,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* JOBS */}
       <section
         id="open-roles"
         className={`${styles.section} ${styles.jobsSection}`}
@@ -365,7 +361,6 @@ export default function CareersPage() {
         )}
       </section>
 
-      {/* COMPANIES */}
       <section className={styles.companiesSection}>
         <p>Teams hiring through our platform</p>
         <div className={styles.companyList}>
@@ -375,7 +370,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className={styles.ctaSection}>
         <div className={styles.cta}>
           <div>

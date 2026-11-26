@@ -14,6 +14,7 @@ import { Myapplication } from "./components/MyApplications/MyApplictions";
 import { JobContextProvider } from "./context/JobContextProvider";
 import { ProtectedRoutes } from "./components/ProtectedRoutes/ProtectedRoutes";
 import CareersPage from "./components/Careers/Careers";
+import AboutPage from "./components/Apout/AboutUs";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                 <Route path="/postjobs" element={<AddJobs />} />
                 <Route path="/myapplicatoins" element={<Myapplication />} />
                 <Route path="/careers" element={<CareersPage />} />
+                <Route path="/about" element={<AboutPage />} />
               </Route>
             </Routes>
             <Footer />

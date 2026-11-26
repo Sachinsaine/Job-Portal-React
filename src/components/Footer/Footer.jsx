@@ -7,6 +7,7 @@ import {
 
 import styles from "./Footer.module.css";
 import logo from "../../assets/logo.svg";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -23,10 +24,10 @@ function Footer() {
               step in your career with JobTrack.
             </p>
 
-            <button className={styles.exploreButton}>
+            <Link to="/jobspage" className={styles.exploreButton}>
               Explore Jobs
               <FiArrowUpRight />
-            </button>
+            </Link>
           </div>
 
           <div className={styles.linkGroup}>

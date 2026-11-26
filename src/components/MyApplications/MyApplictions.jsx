@@ -2,7 +2,8 @@
 import { useContext, useEffect, useState } from "react";
 import { JobContext } from "../../context/JobContext";
 import styles from "./myApplication.module.css";
-import { FiBriefcase } from "react-icons/fi";
+import { FiArrowRight, FiBriefcase } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export const Myapplication = () => {
   const { appliedJobs, setAppliedJobs, loading } = useContext(JobContext);
@@ -53,6 +54,9 @@ export const Myapplication = () => {
             You haven't applied for any jobs yet. Explore opportunities and
             submit your first application.
           </p>
+          <Link to="/jobspage" className={styles.browseButton}>
+            Browse Jobs <FiArrowRight />
+          </Link>
         </div>
       ) : (
         <div className={styles.applicationGrid}>
