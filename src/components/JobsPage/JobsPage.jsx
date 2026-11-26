@@ -1,16 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./jobspage.module.css";
 import "../../../src/index.css";
 import { Link } from "react-router-dom";
-import { FiMapPin, FiTrash2 } from "react-icons/fi";
-import { useContext } from "react";
+import { FiMapPin } from "react-icons/fi";
+import { useContext, useEffect } from "react";
 import { JobContext } from "../../context/JobContext";
 import toast from "react-hot-toast";
-import { DeleteDialog } from "../DeleteDialog/DeleteDialog";
+// import { DeleteDialog } from "../DeleteDialog/DeleteDialog";
 
 export const JobsPage = () => {
   const {
     jobs,
-    setJobs,
+    // setJobs,
     loading,
     appliedJobs,
     setAppliedJobs,
@@ -56,30 +57,30 @@ export const JobsPage = () => {
     toast.success("Application submitted successfully!");
   };
 
-  const handleDelete = async (jobId) => {
-    console.log(jobId);
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/auth/jobs/${jobId}`,
-        {
-          method: "DELETE",
-        },
-      );
+  // const handleDelete = async (jobId) => {
+  //   console.log(jobId);
+  //   try {
+  //     const response = await fetch(
+  //       `${import.meta.env.VITE_API_URL}/api/auth/jobs/${jobId}`,
+  //       {
+  //         method: "DELETE",
+  //       },
+  //     );
 
-      const result = await response.json();
+  //     const result = await response.json();
 
-      if (!response.ok) {
-        throw new Error(result.message || "Failed to delete job");
-      }
+  //     if (!response.ok) {
+  //       throw new Error(result.message || "Failed to delete job");
+  //     }
 
-      setJobs((prev) => prev.filter((job) => job._id !== jobId));
+  //     setJobs((prev) => prev.filter((job) => job._id !== jobId));
 
-      toast.success("Job has been deleted successfully");
-    } catch (error) {
-      console.error("Delete job error:", error);
-      toast.error(error.message || "Failed to delete job");
-    }
-  };
+  //     toast.success("Job has been deleted successfully");
+  //   } catch (error) {
+  //     console.error("Delete job error:", error);
+  //     toast.error(error.message || "Failed to delete job");
+  //   }
+  // };
 
   const jobsPerPage = 12;
 
@@ -89,6 +90,12 @@ export const JobsPage = () => {
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
 
   const currentPageJobs = filteredJobs.slice(firstIndex, lastIndex);
+
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   return (
     <div className={styles.jobsPage}>
@@ -211,7 +218,9 @@ export const JobsPage = () => {
           <button
             className={styles.pageButton}
             onClick={() => setCurrentPage((prev) => prev + 1)}
-            disabled={currentPage === totalPages}
+            disabled={
+              currentPage === totalPages || currentPageJobs.length === 0
+            }
           >
             Next
           </button>

@@ -1,14 +1,30 @@
-import { useContext } from "react";
+/* eslint-disable react-hooks/set-state-in-effect */
+import { useContext, useEffect, useState } from "react";
 import { JobContext } from "../../context/JobContext";
 import styles from "./myApplication.module.css";
+import { FiBriefcase } from "react-icons/fi";
 
 export const Myapplication = () => {
   const { appliedJobs, setAppliedJobs, loading } = useContext(JobContext);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleWithdraw = (id) => {
     setAppliedJobs((prev) => prev.filter((job) => job._id !== id));
   };
 
+  const jobsPerPage = 6;
+  const lastIndex = currentPage * jobsPerPage;
+  const firstIndex = lastIndex - jobsPerPage;
+
+  const totalPages = Math.ceil(appliedJobs.length / jobsPerPage);
+
+  const currentPageJobs = appliedJobs.slice(firstIndex, lastIndex);
+
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
   return (
     <div className={styles.applicationsPage}>
       <div className={styles.pageHeader}>
@@ -27,8 +43,11 @@ export const Myapplication = () => {
         <div className={styles.statusState}>
           <p>Loading applications...</p>
         </div>
-      ) : appliedJobs.length === 0 ? (
+      ) : currentPageJobs.length === 0 ? (
         <div className={styles.emptyState}>
+          <div className={styles.emptyIcon}>
+            <FiBriefcase />
+          </div>
           <h2>No applications yet</h2>
           <p>
             You haven't applied for any jobs yet. Explore opportunities and
@@ -37,7 +56,7 @@ export const Myapplication = () => {
         </div>
       ) : (
         <div className={styles.applicationGrid}>
-          {appliedJobs.map((job) => (
+          {currentPageJobs.map((job) => (
             <div className={styles.applicationCard} key={job._id}>
               <div className={styles.cardHeader}>
                 <div className={styles.jobInitial}>
@@ -105,6 +124,31 @@ export const Myapplication = () => {
           ))}
         </div>
       )}
+      <div className={styles.pagination} hidden={currentPageJobs.length === 0}>
+        <span className={styles.pageInfo}>
+          Page {currentPage} of {totalPages}
+        </span>
+
+        <div className={styles.paginationButtons}>
+          <button
+            className={styles.pageButton}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+
+          <button
+            className={styles.pageButton}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            disabled={
+              currentPage === totalPages || currentPageJobs.length === 0
+            }
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -31,7 +31,7 @@ export const Navbar = () => {
         </Link>
 
         <nav className={styles.navLinks}>
-          <NavLink to="/" end>
+          <NavLink to="/dashboard" end>
             Home
           </NavLink>
 
@@ -39,7 +39,7 @@ export const Navbar = () => {
 
           <NavLink to="/myapplicatoins">Applications</NavLink>
 
-          <NavLink to="/career">Careers</NavLink>
+          <NavLink to="/careers">Careers</NavLink>
           <NavLink to="/about">About</NavLink>
         </nav>
 
