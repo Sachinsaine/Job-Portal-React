@@ -23,8 +23,6 @@ export const Dashboard = () => {
     return <h1>Loading...</h1>;
   }
 
-  console.log(user);
-
   return (
     <div className={styles.dashboard}>
       <aside
